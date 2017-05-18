@@ -7,6 +7,7 @@ using System.Text;
 
 namespace Drape.TinyJson
 {
+    // source: https://github.com/zanders3/json (MIT licensed)
     //Really simple JSON writer
     //- Outputs JSON structures from an object
     //- Really simple API (new List<int> { 1, 2, 3 }).ToJson() == "[1,2,3]"

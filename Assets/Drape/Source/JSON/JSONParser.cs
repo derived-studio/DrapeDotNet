@@ -8,6 +8,7 @@ using System.Text;
 
 namespace Drape.TinyJson
 {
+    // source: https://github.com/zanders3/json (MIT licensed)
     // Really simple JSON parser in ~300 lines
     // - Attempts to parse JSON files with minimal GC allocation
     // - Nice and simple "[1,2,3]".FromJson<List<int>>() API

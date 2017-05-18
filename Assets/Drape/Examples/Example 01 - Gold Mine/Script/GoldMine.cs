@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Drape;
-using Drape.TinyJson;
 
 public class GoldMine : MonoBehaviour
 {
@@ -34,7 +33,7 @@ public class GoldMine : MonoBehaviour
         _gold = new Resource("Gold", startingValue, _goldCapacity, _goldOutput);
 
         // list serialized gold
-        Debug.Log(_gold.ToJson());
+        Debug.Log(_gold.ToJSON());
     }
 
     void Update()

@@ -1,0 +1,12 @@
+﻿[
+    {     
+        "code": "silver-capacity",
+        "name": "Silver capacity",
+        "vallue": 1000
+    },
+    {     
+        "code": "copper",
+        "name": "Copper",
+        "vallue": 1000
+    }
+]

@@ -11,29 +11,23 @@ namespace Drape {
         // skills
         // abilities
 
-        /// <summary>
-        /// Normaly only single instance of Registry is required.
-        /// It is, however, possible to have as many Registries as you need;
-        /// </summary>
-        /// <param name="loader"></param>
-        public Registry(ILoader loader)
-        {
-
-        }
-
         public void Add<T>(T stat) where T:IStat
         {
             string type = stat.GetType().Name;
             if (!stats.ContainsKey(type)) {
                 stats.Add(type, new HashSet<IStat>());
             }
+            UnityEngine.Debug.Log(stat.Code + ">>>");
             stats[type].Add(stat);
         }
 
         public T Get<T>(string code) where T: IStat {
             string type = typeof(T).Name;
+            UnityEngine.Debug.Log(type);
             if (stats.ContainsKey(type)) {
+                UnityEngine.Debug.Log("y");
                 foreach (T s in stats[type]) {
+                    UnityEngine.Debug.Log(s.Code + " ---  " + code);
                     if (s.Code == code) {
                         return (T)s;
                     }

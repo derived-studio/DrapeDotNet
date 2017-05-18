@@ -1,5 +1,6 @@
 ﻿using Drape.TinyJson;
 using Drape.Interfaces;
+using UnityEngine;
 
 namespace Drape.Loaders
 {
@@ -12,11 +13,15 @@ namespace Drape.Loaders
         public override void Load<T>(string path)
         {
             try {
-                string json;
-                json = System.IO.File.ReadAllText(path);
+                //string json;
+                //json = System.IO.File.ReadAllText(path);
+                //Application.dataPath
 
-                T[] stats = json.FromJson<T[]>();
+                TextAsset bindata = Resources.Load(path) as TextAsset;
+                T[] stats = bindata.text.FromJson<T[]>();
+                
                 foreach (T stat in stats) {
+                    Debug.Log(">>>>" + stats.ToJson());
                     Registry.Add<T>(stat);
                 }
 
@@ -26,5 +31,4 @@ namespace Drape.Loaders
             }
         }
     }
-
 }

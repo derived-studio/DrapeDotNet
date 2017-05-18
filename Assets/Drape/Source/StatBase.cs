@@ -1,4 +1,5 @@
 ﻿using Drape.Interfaces;
+using Drape.TinyJson;
 
 namespace Drape
 {
@@ -13,17 +14,18 @@ namespace Drape
 
         public virtual float Value { get { throw new System.NotImplementedException(); } }
 
-        // StatData exposed for serializtion
-        public virtual StatData Data { get { return _data; } }
+        public static StatBase FromJSON(string json) {
+            StatData data = json.FromJson<StatData>();
+            return new StatBase(data);
+        }
+
+        public virtual string ToJSON() { return _data.ToJson(); }
 
         public StatBase(StatData data) : this(data.code, data.name, data.value) { }
         
         public StatBase(string code, string name, int value = 0, string info = "")
         {
             _data = new StatData(code, name, value);
-            _data.code = code;
-            _data.name = name;
-            _data.value = value;
         }
 
         public struct StatData

@@ -6,24 +6,24 @@ namespace Drape
     public class Resource : Multistat, IStat, IUpdatable
     {
         private float _value;
-        public IStat capacity { get; private set; }
-        public IStat output { get; private set; }
+        public IStat Capacity { get; private set; }
+        public IStat Output { get; private set; }
 
         public Resource(string name, float value, IStat capacity, IStat output)
             : base(name, new HashSet<IStat>() { capacity, output })
         {
             _value = value;
-            this.capacity = capacity;
-            this.output = output;
+            this.Capacity = capacity;
+            this.Output = output;
         }
 
         public override float Value { get { return _value; } }
 
         public void Update(float deltaTime)
         {
-            float produced = output.Value * deltaTime;
+            float produced = Output.Value * deltaTime;
             float newValue = _value + produced;
-            _value = newValue > capacity.Value ? capacity.Value : newValue;
+            _value = newValue > Capacity.Value ? Capacity.Value : newValue;
         }
 
         public void Dispose(float value = -1) 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Drape.Interfaces;
+using Drape.Slug;
 
 namespace Drape
 {
@@ -7,7 +8,8 @@ namespace Drape
     {
         public IStat[] Stats { get; private set; }
 
-        public Multistat(string name, HashSet<IStat> stats) : base(name, 0)
+        /*public Multistat(string name, HashSet<IStat> stats) : this(name.ToSlug(), name, stats) { }*/
+        public Multistat(string code, string name, HashSet<IStat> stats) : base(code, name, 0)
         {
             this.Stats = new Stat[stats.Count];
             stats.CopyTo(this.Stats);

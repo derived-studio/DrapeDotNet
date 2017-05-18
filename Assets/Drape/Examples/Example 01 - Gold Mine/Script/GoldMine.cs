@@ -26,8 +26,8 @@ public class GoldMine : MonoBehaviour
     Stat _goldOutput;
     bool _goldCapacityLimit = false;
     bool _goldOutputBoost = false;
-    Drape.Modifier _goldOutputModifier;
-    Drape.Modifier _goldCapacityModifier;
+    Modifier _goldOutputModifier;
+    Modifier _goldCapacityModifier;
 
     void Start()
     {

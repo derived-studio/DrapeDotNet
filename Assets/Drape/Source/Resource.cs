@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Drape.Interfaces;
+using Drape.Slug;
 
 namespace Drape
 {
@@ -10,7 +11,10 @@ namespace Drape
         public IStat Output { get; private set; }
 
         public Resource(string name, float value, IStat capacity, IStat output)
-            : base(name, new HashSet<IStat>() { capacity, output })
+            : this(name.ToSlug(), name, value, capacity, output) { }
+
+        public Resource(string code, string name, float value, IStat capacity, IStat output)
+            : base(code, name, new HashSet<IStat>() { capacity, output })
         {
             _value = value;
             this.Capacity = capacity;

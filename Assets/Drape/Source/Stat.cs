@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Drape.Interfaces;
+using Drape.Slug;
 
 namespace Drape
 {
@@ -10,7 +11,9 @@ namespace Drape
         private List<Modifier> _modifiers = new List<Modifier>();
         private Dictionary<IStat, float> _deps = new Dictionary<IStat, float>();
 
-        public Stat(string name, int baseValue, Dictionary<IStat, float> dependencies = null) : base(name, baseValue)
+        public Stat(string name, int baseValue, Dictionary<IStat, float> dependencies = null) : this(name.ToSlug(), name, baseValue) { }
+
+        public Stat(string code, string name, int baseValue, Dictionary<IStat, float> dependencies = null) : base(code, name, baseValue)
         {
             ResetModifierTotals();
             if (dependencies != null) {
@@ -38,8 +41,8 @@ namespace Drape
 
         public void AddMod(Modifier mod)
         {
-            if (mod.stat.Name != this.Name) {
-                string e = System.String.Format("Mod type mismatch. Modifier \"{0}\" for  stat: \"{1}\" is not allowed by stat: \"{2}\"", mod.Name, mod.stat.Name, this.Name);
+            if (mod.Stat.Name != this.Name) {
+                string e = System.String.Format("Mod type mismatch. Modifier \"{0}\" for  stat: \"{1}\" is not allowed by stat: \"{2}\"", mod.Name, mod.Stat.Name, this.Name);
                 throw new System.Exception(e);
             }
             _modifiers.Add(mod);

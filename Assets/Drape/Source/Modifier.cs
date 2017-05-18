@@ -1,15 +1,18 @@
 ﻿using Drape.Interfaces;
+using Drape.Slug;
 
 namespace Drape
 {
     public class Modifier : Stat, IStat
     {
-        public IStat stat { get; private set; }
-        public ModifierProps props { get; private set; } 
+        public IStat Stat { get; private set; }
+        public ModifierProps props { get; private set; }
 
-        public Modifier(string name, IStat stat, ModifierProps props) : base(name, 1) {
+        public Modifier(string name, IStat stat, ModifierProps props) : this(name.ToSlug(), name, stat, props) {}
+
+        public Modifier(string code, string name, IStat stat, ModifierProps props) : base(code, name, 1) {
             this.props = props;
-            this.stat = stat;
+            this.Stat = stat;
         }
 
         /// <summary>

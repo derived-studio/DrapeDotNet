@@ -6,11 +6,11 @@ namespace Drape
     public class Resource : Multistat, IStat, IUpdatable
     {
         private float _value;
-        public Capacity capacity { get; private set; }
-        public Output output { get; private set; }
+        public IStat capacity { get; private set; }
+        public IStat output { get; private set; }
 
-        public Resource(string name, float value, Capacity capacity, Output output)
-            : base(name, new HashSet<Stat>() { capacity, output })
+        public Resource(string name, float value, IStat capacity, IStat output)
+            : base(name, new HashSet<IStat>() { capacity, output })
         {
             _value = value;
             this.capacity = capacity;
@@ -33,17 +33,5 @@ namespace Drape
                 _value = 0;
             }
         }
-        
-        public class Capacity : Stat
-        {
-            public Capacity(string name, int baseValue) : base(name, baseValue) { }
-        }
-
-        public class Output : Stat
-        {
-            public Output(string name, int baseValue) : base(name, baseValue) { }
-        }
-
-
     }
 }

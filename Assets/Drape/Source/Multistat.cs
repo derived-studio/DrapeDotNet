@@ -5,9 +5,9 @@ namespace Drape
 {
     public class Multistat : Stat, IStat
     {
-        public Stat[] Stats { get; private set; }
+        public IStat[] Stats { get; private set; }
 
-        public Multistat(string name, HashSet<Stat> stats) : base(name, 0)
+        public Multistat(string name, HashSet<IStat> stats) : base(name, 0)
         {
             this.Stats = new Stat[stats.Count];
             stats.CopyTo(this.Stats);

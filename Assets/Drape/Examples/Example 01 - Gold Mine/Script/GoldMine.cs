@@ -22,8 +22,8 @@ public class GoldMine : MonoBehaviour
     public ModifierProps outputModifier = new ModifierProps(0, 0, 0, 1);
     public ModifierProps capacityModifier = new ModifierProps(-500, 0, 0, 0);
 
-    Gold.GoldCapacity _goldCapacity;
-    Gold.GoldOutput _goldOutput;
+    Stat _goldCapacity;
+    Stat _goldOutput;
     bool _goldCapacityLimit = false;
     bool _goldOutputBoost = false;
     Drape.Modifier _goldOutputModifier;
@@ -31,16 +31,15 @@ public class GoldMine : MonoBehaviour
 
     void Start()
     {
-        _goldCapacity = new Gold.GoldCapacity(startingCapacity);
-        _goldOutput = new Gold.GoldOutput(startingOutput);
-        _gold = new Gold(startingValue, _goldCapacity, _goldOutput);
+        _goldCapacity = new Stat("Gold capacity", startingCapacity);
+        _goldOutput = new Stat("Gold output", startingOutput);
+        _gold = new Resource("Gold", startingValue, _goldCapacity, _goldOutput);
 
         List<int> values = new List<int> { 1, 2, 3, 4, 5, 6 };
         string json = values.ToJson();
 
         Debug.Log(json);
         Debug.Log(_gold.ToJson());
-
 
         List<int> values2 = json.FromJson<List<int>>();
         Debug.Log(values2.ToString());

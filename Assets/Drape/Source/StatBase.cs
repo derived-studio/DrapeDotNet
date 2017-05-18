@@ -16,6 +16,8 @@ namespace Drape
         // StatData exposed for serializtion
         public virtual StatData Data { get { return _data; } }
 
+        public StatBase(StatData data) : this(data.code, data.name, data.value) { }
+        
         public StatBase(string code, string name, int value = 0, string info = "")
         {
             _data = new StatData(code, name, value);

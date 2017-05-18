@@ -4,21 +4,38 @@ namespace Drape
 {
     public class StatBase: IStat
     {
-        private string _code;
-        private string _name;
-        private int _baseValue;
 
-        public string Code { get { return _code; } }
-        public string Name { get { return _name; } }
-        public int BaseValue { get { return _baseValue; } }
+        private StatData _data;
+
+        public string Code { get { return _data.code; } }
+        public string Name { get { return _data.name; } }
+        public int BaseValue { get { return _data.value; } }
 
         public virtual float Value { get { throw new System.NotImplementedException(); } }
 
-        public StatBase(string code, string name, int baseValue = 0, string info = "")
+        // StatData exposed for serializtion
+        public virtual StatData Data { get { return _data; } }
+
+        public StatBase(string code, string name, int value = 0, string info = "")
         {
-            _code = code;
-            _name = name;
-            _baseValue = baseValue;
+            _data = new StatData(code, name, value);
+            _data.code = code;
+            _data.name = name;
+            _data.value = value;
+        }
+
+        public struct StatData
+        {
+            public string code;
+            public string name;
+            public int value;
+
+            public StatData(string code, string name, int value)
+            {
+                this.code = code;
+                this.name = name;
+                this.value = value;
+            }
         }
     }
 }

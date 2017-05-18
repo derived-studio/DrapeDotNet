@@ -6,9 +6,9 @@ namespace Drape.Slug
     /// Extension converting string to slug
     public static class SlugParser
     {
-        public static string GenerateSlug(this string phrase)
+        public static string ToSlug(this string phrase)
         {
-            string str = phrase.RemoveAccent().ToLower();
+            string str = phrase.ToLower();
             // remove invalid chars
             str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
             // convert multiple spaces into one space   
@@ -18,12 +18,6 @@ namespace Drape.Slug
             // add hyphens
             str = Regex.Replace(str, @"\s", "-");
             return str;
-        }
-
-        public static string RemoveAccent(this string txt)
-        {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
-            return System.Text.Encoding.ASCII.GetString(bytes);
         }
     }
 }

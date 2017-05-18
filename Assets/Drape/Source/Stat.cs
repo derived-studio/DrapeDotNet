@@ -11,8 +11,8 @@ namespace Drape
         private List<Modifier> _modifiers = new List<Modifier>();
         private Dictionary<IStat, float> _deps = new Dictionary<IStat, float>();
 
+        public Stat(string name) : this(name.ToSlug(), name, 0) { }
         public Stat(string name, int baseValue, Dictionary<IStat, float> dependencies = null) : this(name.ToSlug(), name, baseValue) { }
-
         public Stat(string code, string name, int baseValue, Dictionary<IStat, float> dependencies = null) : base(code, name, baseValue)
         {
             ResetModifierTotals();

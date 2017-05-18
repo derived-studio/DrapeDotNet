@@ -8,8 +8,9 @@ namespace Drape
     {
         public IStat[] Stats { get; private set; }
 
-        /*public Multistat(string name, HashSet<IStat> stats) : this(name.ToSlug(), name, stats) { }*/
-        public Multistat(string code, string name, HashSet<IStat> stats) : base(code, name, 0)
+        public Multistat(string name, HashSet<IStat> stats) : this(name.ToSlug(), name, 0, stats) { }
+        public Multistat(string name, int baseValue, HashSet<IStat> stats) : this(name.ToSlug(), name, baseValue, stats) { }
+        public Multistat(string code, string name, int baseValue, HashSet<IStat> stats) : base(code, name, baseValue)
         {
             this.Stats = new Stat[stats.Count];
             stats.CopyTo(this.Stats);
@@ -20,7 +21,7 @@ namespace Drape
         /// </summary>
         public override float Value {
             get {
-                float value = 0;
+                float value = BaseValue;
                 foreach(Stat stat in Stats) {
                     value += stat.Value;
                 }

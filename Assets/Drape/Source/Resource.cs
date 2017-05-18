@@ -10,11 +10,10 @@ namespace Drape
         public IStat Capacity { get; private set; }
         public IStat Output { get; private set; }
 
-        public Resource(string name, float value, IStat capacity, IStat output)
+        public Resource(string name, int value, IStat capacity, IStat output)
             : this(name.ToSlug(), name, value, capacity, output) { }
-
-        public Resource(string code, string name, float value, IStat capacity, IStat output)
-            : base(code, name, new HashSet<IStat>() { capacity, output })
+        public Resource(string code, string name, int value, IStat capacity, IStat output)
+            : base(code, name, value, new HashSet<IStat>() { capacity, output })
         {
             _value = value;
             this.Capacity = capacity;

@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
-using System.Collections.Generic;
 using Drape;
 using Drape.TinyJson;
 
@@ -35,16 +33,8 @@ public class GoldMine : MonoBehaviour
         _goldOutput = new Stat("Gold output", startingOutput);
         _gold = new Resource("Gold", startingValue, _goldCapacity, _goldOutput);
 
-        List<int> values = new List<int> { 1, 2, 3, 4, 5, 6 };
-        string json = values.ToJson();
-
-        Debug.Log(json);
+        // list serialized gold
         Debug.Log(_gold.ToJson());
-
-        List<int> values2 = json.FromJson<List<int>>();
-        Debug.Log(values2.ToString());
-        int[] values3 = json.FromJson<int[]>();
-        Debug.Log(values3.ToString());
     }
 
     void Update()

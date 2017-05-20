@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Drape;
+using System.Collections.Generic;
 
 public class GoldMine : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class GoldMine : MonoBehaviour
     public Text capacityLabel;
 
     // We are using local ModifierProps to expose Modifier.ModifierProps properties in inspector
-    // and use them to construct concreete Modifier.ModifierProps object    
+    // and use them to construct concreete Modifier.ModifierProps object
     public ModifierProps outputModifier = new ModifierProps(0, 0, 0, 1);
     public ModifierProps capacityModifier = new ModifierProps(-500, 0, 0, 0);
 
@@ -29,11 +30,24 @@ public class GoldMine : MonoBehaviour
     void Start()
     {
         _goldCapacity = new Stat("Gold capacity", startingCapacity);
-        _goldOutput = new Stat("Gold output", startingOutput);
+
+        Dictionary<Drape.Interfaces.IStat, float> goldDeps = new Dictionary<Drape.Interfaces.IStat, float>();
+        goldDeps.Add(_goldCapacity, 0.5f);
+        _goldOutput = new Stat("Gold output", startingOutput, goldDeps);
+
         _gold = new Resource("Gold", startingValue, _goldCapacity, _goldOutput);
 
         // list serialized gold
         Debug.Log(_gold.ToJSON());
+        Debug.Log(_goldOutput.ToJSON());
+
+        Debug.Log("---------");
+        Registry registry = new Registry();
+        TextAsset bindata = Resources.Load("stats") as TextAsset;
+
+        Stat[] stats = Stat.FromJSONArray<StatData>(bindata.text);
+        Debug.Log(stats[1].ToJSON());
+
     }
 
     void Update()
@@ -70,7 +84,6 @@ public class GoldMine : MonoBehaviour
     {
         _gold.Dispose();
     }
-
 
     private Modifier CreateModifier(string name, Stat stat, ModifierProps props)
     {

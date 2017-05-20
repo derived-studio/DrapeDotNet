@@ -4,21 +4,34 @@ using Drape.Slug;
 
 namespace Drape
 {
-    public class Stat: StatBase, IStat
+    public class Stat: BaseStat<Stat, StatData>, IStat
     {
+        private List<Modifier> _modifiers = new List<Modifier>();
+        private Dictionary<IStat, float> _dependencies = new Dictionary<IStat, float>();
+
         private Modifier.ModifierProps _modTotals;
 
-        private List<Modifier> _modifiers = new List<Modifier>();
-        private Dictionary<IStat, float> _deps = new Dictionary<IStat, float>();
-
+        public Stat(StatData data) : base(data) { }
         public Stat(string name) : this(name.ToSlug(), name, 0) { }
-        public Stat(string name, int baseValue, Dictionary<IStat, float> dependencies = null) : this(name.ToSlug(), name, baseValue) { }
-        public Stat(string code, string name, int baseValue, Dictionary<IStat, float> dependencies = null) : base(code, name, baseValue)
+        public Stat(string name, Dictionary<IStat, float> dependencies = null) : this(name.ToSlug(), name, 0, dependencies) { }
+        public Stat(string name, int value, Dictionary<IStat, float> dependencies = null) : this(name.ToSlug(), name, value, dependencies) { }
+        public Stat(string code, string name, int value, Dictionary<IStat, float> dependencies = null) : base(new StatData(code, name, value))
         {
-            ResetModifierTotals();
-            if (dependencies != null) {
-                _deps = dependencies;
+
+            // process for serialization
+            if (dependencies != null) { 
+                List<StatData.Dependency> deps = new List<StatData.Dependency>();
+                foreach(KeyValuePair<IStat, float> dep in dependencies) {
+                    deps.Add(new StatData.Dependency() {
+                        code = dep.Key.Code,
+                        value = dep.Value
+                    });
+                }
+
+                _data.dependencies = deps.ToArray();
             }
+
+            ResetModifierTotals();
         }
 
         /// <summary>
@@ -28,7 +41,7 @@ namespace Drape
             get {
                 float depsValue = 0;
                 // todo: is there more efficient way?
-                foreach (KeyValuePair<IStat, float> entry in _deps) {
+                foreach (KeyValuePair<IStat, float> entry in _dependencies) {
                     IStat stat = entry.Key;
                     float factor = entry.Value;
                     depsValue += stat.Value * factor;
@@ -37,7 +50,9 @@ namespace Drape
                 float value = _modTotals.GetValue(baseValue);
                 return value;
             }
-        } 
+        }
+
+        public StatData.Dependency[] dependencies { get { return _data.dependencies; } }
 
         public void AddMod(Modifier mod)
         {

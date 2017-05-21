@@ -9,4 +9,4 @@
             this.stats = stats;
         }
     }
-}   
+}

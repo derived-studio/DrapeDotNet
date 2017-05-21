@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class GoldMine : MonoBehaviour
 {
     Resource _gold;
-
+     
     private int startingValue = 0;
     private int startingOutput = 50;
     private int startingCapacity = 1000;
@@ -15,17 +15,15 @@ public class GoldMine : MonoBehaviour
     public Text outputLabel;
     public Text capacityLabel;
 
-    // We are using local ModifierProps to expose Modifier.ModifierProps properties in inspector
-    // and use them to construct concreete Modifier.ModifierProps object
-    public ModifierProps outputModifier = new ModifierProps(0, 0, 0, 1);
-    public ModifierProps capacityModifier = new ModifierProps(-500, 0, 0, 0);
-
     Stat _goldCapacity;
     Stat _goldOutput;
     bool _goldCapacityLimit = false;
     bool _goldOutputBoost = false;
-    Modifier _goldOutputModifier;
-    Modifier _goldCapacityModifier;
+
+    public ModifierData outputMod = new ModifierData("gold-output-mod", "Faster mining", "gold-capacity", 0, 0, 0, 0.2f);
+    public ModifierData capacityMod = new ModifierData("gold-cap-mod", "Brokene storage", "gold-output", -500, 0, 0, 0);
+    private Modifier _goldOutputModifier;
+    private Modifier _goldCapacityModifier;
 
     void Start()
     {
@@ -48,6 +46,10 @@ public class GoldMine : MonoBehaviour
         Stat[] stats = Stat.FromJSONArray<StatData>(bindata.text);
         Debug.Log(stats[1].ToJSON());
 
+        Debug.Log("---------");
+        Modifier mod = new Modifier("Faster mining", _goldOutput, 0, 1, 0, 1.2f);
+        Debug.Log(mod.ToJSON());
+
     }
 
     void Update()
@@ -62,8 +64,8 @@ public class GoldMine : MonoBehaviour
     {
         _goldCapacityLimit = !_goldCapacityLimit;
         if (_goldCapacityLimit) {
-            _goldCapacityModifier = CreateModifier("Gold capacity modifier", _goldCapacity, capacityModifier);
-            _goldCapacity.AddMod(_goldCapacityModifier);
+            _goldCapacityModifier = CreateModifier(capacityMod, _goldCapacity);
+            _goldCapacity.AddModifier(_goldCapacityModifier);
         } else {
             _goldCapacity.ClearMods();
         }
@@ -73,8 +75,8 @@ public class GoldMine : MonoBehaviour
     {
         _goldOutputBoost = !_goldOutputBoost;
         if (_goldOutputBoost) {
-            _goldOutputModifier = CreateModifier("Gold output boost", _goldOutput, outputModifier);
-            _goldOutput.AddMod(_goldOutputModifier);
+            _goldOutputModifier = CreateModifier(outputMod, _goldOutput);
+            _goldOutput.AddModifier(_goldOutputModifier);
         } else {
             _goldOutput.ClearMods();
         }
@@ -85,25 +87,8 @@ public class GoldMine : MonoBehaviour
         _gold.Dispose();
     }
 
-    private Modifier CreateModifier(string name, Stat stat, ModifierProps props)
+    private Modifier CreateModifier(ModifierData props, Stat stat)
     {
-        return new Modifier(name, stat, new Modifier.ModifierProps(props.rawFlat, props.rawFactor, props.finalFlat, props.finalFactor));
-    }
-
-    [System.Serializable]
-    public struct ModifierProps
-    {
-        public int rawFlat;
-        public float rawFactor;
-        public int finalFlat;
-        public float finalFactor;
-
-        public ModifierProps(int rawFlat, float rawFactor, int finalFlat, float finalFactor)
-        {
-            this.rawFlat = rawFlat;
-            this.rawFactor = rawFactor;
-            this.finalFlat = finalFlat;
-            this.finalFactor = finalFactor;
-        }
+        return new Modifier(props.name, stat, props.rawFlat, props.rawFactor, props.finalFlat, props.finalFactor);
     }
 }

@@ -17,9 +17,10 @@ namespace Drape
 
         public virtual float Value { get { throw new System.NotImplementedException(); } }
 
-        public BaseStat(TData data) 
+        public BaseStat(TData data, IRegistry registry) 
         {
             _data = data;
+            registry.Add<BaseStat<TStat, TData>>(this);
         }
 
         /// <summary>

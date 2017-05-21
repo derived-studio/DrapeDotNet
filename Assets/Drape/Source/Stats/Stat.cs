@@ -11,27 +11,20 @@ namespace Drape
 
         private Modifier _modTotals;
 
-        public Stat(StatData data) : base(data) { }
-        public Stat(string name) : this(name.ToSlug(), name, 0) { }
-        public Stat(string name, Dictionary<IStat, float> dependencies = null) : this(name.ToSlug(), name, 0, dependencies) { }
-        public Stat(string name, int value, Dictionary<IStat, float> dependencies = null) : this(name.ToSlug(), name, value, dependencies) { }
-        public Stat(string code, string name, int value, Dictionary<IStat, float> dependencies = null) : base(new StatData(code, name, value))
+        public Stat(StatData data, IRegistry registry) : base(data, registry)
         {
             // process for serialization
-            if (dependencies != null) { 
+            if (data.dependencies != null) { 
                 List<StatData.Dependency> deps = new List<StatData.Dependency>();
-                foreach(KeyValuePair<IStat, float> dep in dependencies) {
-                    deps.Add(new StatData.Dependency() {
-                        code = dep.Key.Code,
-                        value = dep.Value
-                    });
+                foreach(StatData.Dependency dep in data.dependencies) {
+                    IStat stat = registry.Get<IStat>(dep.code);
+                    UnityEngine.Debug.Log("stat name: " + stat.Name + " for: " + this.Name);
+                    _dependencies.Add(stat, dep.value);
                 }
-
-                _data.dependencies = deps.ToArray();
             }
 
             string modName = this.Name + " totals";
-            _modTotals = new Modifier(modName, this, 0, 1, 0, 1);
+            _modTotals = new Modifier(new ModifierData(modName, this.Name, 0, 1, 0, 1), registry);
         }
 
         /// <summary>
@@ -56,8 +49,8 @@ namespace Drape
 
         public void AddModifier(Modifier modifier)
         {
-            if (modifier.Stat.Name != this.Name) {
-                string e = System.String.Format("Mod type mismatch. Modifier \"{0}\" for  stat: \"{1}\" is not allowed by stat: \"{2}\"", modifier.Name, modifier.Stat.Name, this.Name);
+            if (modifier.Stat != this.Code) {
+                string e = System.String.Format("Mod type mismatch. Modifier \"{0}\" for  stat: \"{1}\" is not allowed by stat: \"{2}\"", modifier.Name, modifier.Stat, this.Name);
                 throw new System.Exception(e);
             }
             _modifiers.Add(modifier);

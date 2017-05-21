@@ -5,7 +5,7 @@ namespace Drape
 {
     public class Modifier : BaseStat<Modifier, ModifierData>, IStat
     {
-        public IStat Stat { get; private set; }
+        public string Stat {  get { return _data.stat;  } }
 
         public int RawFlat {
             get { return _data.rawFlat; }
@@ -33,14 +33,7 @@ namespace Drape
         /// </summary>
         public new float Value { get { return GetValue(1); } }
 
-        public Modifier(string name, IStat stat, int rawFlat, float rawFactor, int finalFlat, float finalFactor) 
-            : this(name.ToSlug(), name, stat, rawFlat, rawFactor, finalFlat, finalFactor) {}
-
-        public Modifier(string code, string name, IStat stat, int rawFlat, float rawFactor, int finalFlat, float finalFactor) 
-            : base(new ModifierData(code, name, stat.Name, rawFlat, rawFactor, finalFlat, finalFactor))
-        {
-            this.Stat = stat;
-        }
+        public Modifier(ModifierData data, IRegistry registry) : base(data, registry) { }
 
         /// <summary>
         /// Calculate value for baseValue affected by modifier.

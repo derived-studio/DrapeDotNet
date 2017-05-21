@@ -20,36 +20,51 @@ public class GoldMine : MonoBehaviour
     bool _goldCapacityLimit = false;
     bool _goldOutputBoost = false;
 
-    public ModifierData outputMod = new ModifierData("gold-output-mod", "Faster mining", "gold-capacity", 0, 0, 0, 0.2f);
-    public ModifierData capacityMod = new ModifierData("gold-cap-mod", "Brokene storage", "gold-output", -500, 0, 0, 0);
+
+    public ModifierData outputMod;
     private Modifier _goldOutputModifier;
+
+    public ModifierData capacityMod;
     private Modifier _goldCapacityModifier;
+    
 
     void Start()
     {
-        _goldCapacity = new Stat("Gold capacity", startingCapacity);
+        Registry registry = new Registry();
 
-        Dictionary<Drape.Interfaces.IStat, float> goldDeps = new Dictionary<Drape.Interfaces.IStat, float>();
-        goldDeps.Add(_goldCapacity, 0.5f);
-        _goldOutput = new Stat("Gold output", startingOutput, goldDeps);
+        Debug.Log("-------- init capacity");
+        _goldCapacity = new Stat(new StatData("Gold capacity", startingCapacity), registry);
+        Debug.Log("ref> " + _goldCapacity.ToJSON());
+        Debug.Log("reg>: " + registry.Get<Stat>(_goldCapacity.Code).ToJSON());
 
-        _gold = new Resource("Gold", startingValue, _goldCapacity, _goldOutput);
-
-        // list serialized gold
-        Debug.Log(_gold.ToJSON());
+        Debug.Log("-------- init output");
+        _goldOutput = new Stat(new StatData("Gold output", startingOutput, new Dictionary<string, float>() {
+            //{ _goldCapacity.Code, 0.5f }
+        }), registry);
         Debug.Log(_goldOutput.ToJSON());
 
+        Debug.Log("-------- init output");
+        _gold = new Resource(new ResourceData("Gold", startingValue, _goldCapacity.Code, _goldOutput.Code), registry);
+        Debug.Log(_gold.ToJSON());
+
+
+        Debug.Log("--------- init modifiers");
+        outputMod = new ModifierData("Faster mining", _goldOutput.Code, 0, 0, 0, 0.2f);
+        _goldOutputModifier = new Modifier(outputMod, registry);
+        Debug.Log(_goldOutputModifier.ToJSON());
+
+        capacityMod = new ModifierData("Brokene storage", _goldCapacity.Code, -500, 0, 0, 0);
+        _goldCapacityModifier = new Modifier(capacityMod, registry);
+        Debug.Log(_goldCapacityModifier.ToJSON());
+
+
+        /*
         Debug.Log("---------");
-        Registry registry = new Registry();
         TextAsset bindata = Resources.Load("stats") as TextAsset;
 
         Stat[] stats = Stat.FromJSONArray<StatData>(bindata.text);
         Debug.Log(stats[1].ToJSON());
-
-        Debug.Log("---------");
-        Modifier mod = new Modifier("Faster mining", _goldOutput, 0, 1, 0, 1.2f);
-        Debug.Log(mod.ToJSON());
-
+        */
     }
 
     void Update()
@@ -64,7 +79,6 @@ public class GoldMine : MonoBehaviour
     {
         _goldCapacityLimit = !_goldCapacityLimit;
         if (_goldCapacityLimit) {
-            _goldCapacityModifier = CreateModifier(capacityMod, _goldCapacity);
             _goldCapacity.AddModifier(_goldCapacityModifier);
         } else {
             _goldCapacity.ClearMods();
@@ -75,7 +89,6 @@ public class GoldMine : MonoBehaviour
     {
         _goldOutputBoost = !_goldOutputBoost;
         if (_goldOutputBoost) {
-            _goldOutputModifier = CreateModifier(outputMod, _goldOutput);
             _goldOutput.AddModifier(_goldOutputModifier);
         } else {
             _goldOutput.ClearMods();
@@ -85,10 +98,5 @@ public class GoldMine : MonoBehaviour
     public void EmptyuMine()
     {
         _gold.Dispose();
-    }
-
-    private Modifier CreateModifier(ModifierData props, Stat stat)
-    {
-        return new Modifier(props.name, stat, props.rawFlat, props.rawFactor, props.finalFlat, props.finalFactor);
     }
 }

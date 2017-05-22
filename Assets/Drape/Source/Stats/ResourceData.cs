@@ -3,7 +3,7 @@
 namespace Drape
 {
     [System.Serializable]
-    public class ResourceData : MultistatData
+    public class ResourceData : BaseStatData
     {
         public string capacity;
         public string output;
@@ -15,7 +15,7 @@ namespace Drape
             : this(name.ToSlug(), name, value, capacity, output) { }
 
         public ResourceData(string code, string name, int value, string capacity, string output)
-            : base(code, name, value, new string[] { capacity, output })
+            : base(code, name, value)
         {
             this.capacity = capacity;
             this.output = output;

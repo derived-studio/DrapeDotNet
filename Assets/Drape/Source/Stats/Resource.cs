@@ -4,7 +4,7 @@ using Drape.Slug;
 
 namespace Drape
 {
-    public class Resource : Multistat, IStat, IUpdatable
+    public class Resource : BaseStat<Resource, ResourceData>, IStat, IUpdatable
     {
         private float _qty;
         public IStat Capacity { get; private set; }
@@ -26,12 +26,31 @@ namespace Drape
             _qty = newValue > Capacity.Value ? Capacity.Value : newValue;
         }
 
-        public void Dispose(float value = -1) 
+        public void DisposeAll()
+        {
+            Dispose(-1);
+        }
+
+        public void Dispose(float value = 0) 
         {
             _qty = value < 0 ? 0 : _qty - value;
             if (_qty < 0) {
                 _qty = 0;
             }
+        }
+        
+        public void Restore(float value = 0)
+        {
+            float cap = Capacity.Value;
+            _qty = value < 0 ? cap : _qty + value;
+            if (_qty > cap) {
+                _qty = cap;
+            }
+        }
+
+        public void RestoreAll()
+        {
+            Restore(-1);
         }
     }
 }

@@ -24,13 +24,13 @@ namespace Drape
 
         public StatData(string code, string name, int value, Dictionary<string, float> dependencies = null) : base(code, name, value)
         {
+            List<Dependency> list = new List<Dependency>();
             if (dependencies != null) {
-                List<Dependency> list = new List<Dependency>();
                 foreach (KeyValuePair<string, float> pair in dependencies) {
                     list.Add(new Dependency(pair.Key, pair.Value));
                 }
-                this.dependencies = list.ToArray();
             }
+            this.dependencies = list.ToArray();
         }
     }
 }

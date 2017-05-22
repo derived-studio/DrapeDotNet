@@ -13,8 +13,10 @@ namespace Drape
         public Resource(ResourceData data, IRegistry registry) : base(data, registry)
         {
             _qty = data.value;
-            this.Capacity = registry.Get<IStat>(data.capacity);
+            Capacity = registry.Get<IStat>(data.capacity);
+            if (Capacity == null) throw new StatNotFoundException(data.capacity + " (Resource::.output) ");
             this.Output = registry.Get<IStat>(data.output);
+            if (Output == null) throw new StatNotFoundException(data.output + " (Resource::.output) ");
         }
 
         public override float Value { get { return _qty; } }

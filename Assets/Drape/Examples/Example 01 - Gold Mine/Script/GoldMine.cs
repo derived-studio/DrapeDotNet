@@ -21,13 +21,11 @@ public class GoldMine : MonoBehaviour
     bool _goldCapacityLimit = false;
     bool _goldOutputBoost = false;
 
-
     public ModifierData outputMod;
     private Modifier _goldOutputModifier;
 
     public ModifierData capacityMod;
     private Modifier _goldCapacityModifier;
-    
 
     void Start()
     {
@@ -47,7 +45,6 @@ public class GoldMine : MonoBehaviour
         Debug.Log("-------- init output");
         _gold = new Resource(new ResourceData("Gold", startingValue, _goldCapacity.Code, _goldOutput.Code), registry);
         Debug.Log(_gold.ToJSON());
-
 
         Debug.Log("--------- init modifiers");
         outputMod = new ModifierData("Faster mining", _goldOutput.Code, 0, 0, 0, 0.2f);
@@ -79,7 +76,8 @@ public class GoldMine : MonoBehaviour
         Registry newRegistry = registryFactory.Create(); // returns instance of registry
          _gold2 = newRegistry.Get<Resource>("gold");
         Debug.Log(_gold2.ToJSON());
-        
+        Debug.Log(_gold2.Capacity.ToJSON());
+        Debug.Log(_gold2.Output.ToJSON());
         Debug.Log(newRegistry.Get<Modifier>("faster-mining").ToJSON());
      
     }
@@ -115,6 +113,6 @@ public class GoldMine : MonoBehaviour
 
     public void EmptyuMine()
     {
-        _gold.Dispose();
+        _gold.DisposeAll();
     }
 }

@@ -1,4 +1,4 @@
 ﻿[
-    {"code":"silver","name":"Silver","value":0},
-    {"code":"copper","name":"Copper","value":0}
+	{"code":"gold-output","name":"Gold output","value":50},
+	{"code":"gold-capacity","name":"Gold capacity","value":1000}
 ]

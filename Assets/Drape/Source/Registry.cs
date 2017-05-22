@@ -42,7 +42,7 @@ namespace Drape {
                 return System.Array.ConvertAll(arr, (p => (T)p));
             }
 
-            return new T[0];
+            return default(T[]);
         }
 
         /// <summary>

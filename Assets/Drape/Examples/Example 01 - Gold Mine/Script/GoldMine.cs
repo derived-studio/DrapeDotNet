@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Drape;
+using Drape.Interfaces;
 using System.Collections.Generic;
 
 public class GoldMine : MonoBehaviour
@@ -65,11 +66,28 @@ public class GoldMine : MonoBehaviour
         Stat[] stats = Stat.FromJSONArray<StatData>(bindata.text);
         Debug.Log(stats[1].ToJSON());
         */
-    }
 
+        Debug.Log("--------- loaded from .json");
+
+        RegistryFactory registryFactory = new RegistryFactory(new List<IInstaller>() {
+            { new JSONInstaller<Stat, StatData>((Resources.Load("stats") as TextAsset).text) },
+            { new JSONInstaller<Resource, ResourceData>((Resources.Load("resources") as TextAsset).text) },
+            { new JSONInstaller<Modifier, ModifierData>((Resources.Load("modifiers") as TextAsset).text) }
+        });
+
+
+        Registry newRegistry = registryFactory.Create(); // returns instance of registry
+         _gold2 = newRegistry.Get<Resource>("gold");
+        Debug.Log(_gold2.ToJSON());
+        
+        Debug.Log(newRegistry.Get<Modifier>("faster-mining").ToJSON());
+     
+    }
+    Resource _gold2; 
     void Update()
     {
         _gold.Update(Time.deltaTime);
+        _gold2.Update(Time.deltaTime);
         goldLabel.text = _gold.Value.ToString("0.000");
         outputLabel.text = _goldOutput.Value.ToString("0.000");
         capacityLabel.text = _goldCapacity.Value.ToString("0.000");

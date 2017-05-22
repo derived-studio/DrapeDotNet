@@ -18,7 +18,6 @@ namespace Drape
                 List<StatData.Dependency> deps = new List<StatData.Dependency>();
                 foreach(StatData.Dependency dep in data.dependencies) {
                     IStat stat = registry.Get<IStat>(dep.code);
-                    UnityEngine.Debug.Log("stat name: " + stat.Name + " for: " + this.Name);
                     _dependencies.Add(stat, dep.value);
                 }
             }

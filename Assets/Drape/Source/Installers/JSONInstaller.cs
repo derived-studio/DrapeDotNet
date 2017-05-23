@@ -18,15 +18,16 @@ namespace Drape
             if (jsonString.StartsWith("[") && jsonString.EndsWith("]")) {
                 try {
                     statDataArr = jsonString.FromJson<TStatData[]>();
-                    JSON = jsonString;
                 } catch (System.Exception) {
                     throw new InvalidJSONException("Couldn't parse JSON string", jsonString);
                 }
             } else if (jsonString.StartsWith("{") && jsonString.EndsWith("}")) {
                 throw new InvalidJSONException("JSON String is an object but should be an array", jsonString);
+            } else {
+                throw new InvalidJSONException("Couldn't parse JSON string", jsonString);
             }
 
-            throw new InvalidJSONException("Couldn't parse JSON string", jsonString);
+            JSON = jsonString;
         }
 
         public void Install(Registry registry)

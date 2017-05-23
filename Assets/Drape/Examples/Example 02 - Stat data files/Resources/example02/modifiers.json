@@ -1,4 +1,4 @@
 ﻿[
     {"code":"broken-storage", "name":"Broken storage", "value":0, "stat":"gold-capacity", "rawFlat":-500, "rawFactor":0, "finalFlat":0, "finalFactor":0},
-	{"code":"faster-mining", "name":"Faster mining", "value":0, "stat":"gold-output", "rawFlat":0, "rawFactor":0, "finalFlat":0, "finalFactor":0.2 }
+	{"code":"faster-mining", "name":"Faster mining", "value":0, "stat":"gold-output", "rawFlat":0, "rawFactor":0, "finalFlat":0, "finalFactor":0.5}
 ]

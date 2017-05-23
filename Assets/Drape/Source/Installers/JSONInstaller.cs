@@ -1,5 +1,6 @@
 ﻿using Drape.Interfaces;
 using Drape.TinyJson;
+using Drape.Exceptions;
 
 namespace Drape
 {
@@ -10,10 +11,22 @@ namespace Drape
         private TStatData[] statDataArr;
         public string JSON { get; private set; }
 
-        public JSONInstaller(string json)
+        public JSONInstaller(string jsonString)
         {
-            statDataArr = json.FromJson<TStatData[]>();
-            JSON = json;
+            jsonString = System.Text.RegularExpressions.Regex.Replace(jsonString, @"\s+", "");
+
+            if (jsonString.StartsWith("[") && jsonString.EndsWith("]")) {
+                try {
+                    statDataArr = jsonString.FromJson<TStatData[]>();
+                    JSON = jsonString;
+                } catch (System.Exception e) {
+                    throw new InvalidJSONException("Couldn't parse JSON string", jsonString);
+                }
+            } else if (jsonString.StartsWith("{") && jsonString.EndsWith("}")) {
+                throw new InvalidJSONException("JSON String is an object but should be an array", jsonString);
+            }
+
+            throw new InvalidJSONException("Couldn't parse JSON string", jsonString);
         }
 
         public void Install(Registry registry)

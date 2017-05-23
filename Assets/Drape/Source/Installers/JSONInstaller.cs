@@ -19,7 +19,7 @@ namespace Drape
                 try {
                     statDataArr = jsonString.FromJson<TStatData[]>();
                     JSON = jsonString;
-                } catch (System.Exception e) {
+                } catch (System.Exception) {
                     throw new InvalidJSONException("Couldn't parse JSON string", jsonString);
                 }
             } else if (jsonString.StartsWith("{") && jsonString.EndsWith("}")) {

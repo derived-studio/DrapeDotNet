@@ -55,7 +55,7 @@ namespace Drape {
             try {
                 IStat stat = Get(code);
                 return (T)stat;
-            } catch (System.Exception e) { }
+            } catch (System.Exception) { }
             return default(T);
         }
 

@@ -15,7 +15,6 @@ namespace Drape
         {
             // process for serialization
             if (data.dependencies != null) { 
-                List<StatData.Dependency> deps = new List<StatData.Dependency>();
                 foreach(StatData.Dependency dep in data.dependencies) {
                     IStat stat = registry.Get<IStat>(dep.code);
                     _dependencies.Add(stat, dep.value);
@@ -41,6 +40,17 @@ namespace Drape
                 float baseValue = base.BaseValue + depsValue;
                 float value = _modTotals.GetValue(baseValue);
                 return value;
+            }
+        }
+
+        /// <summary>
+        /// Returns number of modifiers
+        /// </summary>
+        public float ModifierCount
+        {
+            get
+            {
+                return _modifiers.Count;
             }
         }
 

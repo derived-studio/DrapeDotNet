@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Drape.Interfaces;
+using Drape.Exceptions;
 
 namespace Drape {
     public class Registry: IRegistry
@@ -42,7 +42,7 @@ namespace Drape {
                 return System.Array.ConvertAll(arr, (p => (T)p));
             }
 
-            return default(T[]);
+            return new T[0];
         }
 
         /// <summary>
@@ -55,8 +55,9 @@ namespace Drape {
             try {
                 IStat stat = Get(code);
                 return (T)stat;
-            } catch (System.Exception) { }
-            return default(T);
+            } catch (System.Exception) {
+                throw new StatNotFoundException(code);
+            }
         }
 
         /// <summary>
@@ -70,7 +71,8 @@ namespace Drape {
             if (_stats.ContainsKey(code)) {
                 return _stats[code];
             }
-            return null;
+
+            throw new StatNotFoundException(code);
         }
     }
 }

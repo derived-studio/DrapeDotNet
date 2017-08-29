@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Drape.Interfaces;
-using Drape.Slug;
 
 namespace Drape
 {

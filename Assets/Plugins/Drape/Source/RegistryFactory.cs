@@ -4,22 +4,22 @@ using Drape.Interfaces;
 
 namespace Drape
 {
-    class RegistryFactory {
+	class RegistryFactory
+	{
+		private List<IInstaller> _installers;
 
-        private List<IInstaller> _installers;
+		public RegistryFactory(List<IInstaller> installers)
+		{
+			_installers = installers;
+		}
 
-        public RegistryFactory(List<IInstaller> installers)
-        {
-            _installers = installers;
-        }
-
-        public Registry Create()
-        {
-            Registry registry = new Registry();
-            foreach (IInstaller installer in _installers) {
-                installer.Install(registry);
-            }
-            return registry;
-        }
-    }
+		public Registry Create()
+		{
+			Registry registry = new Registry();
+			foreach (IInstaller installer in _installers) {
+				installer.Install(registry);
+			}
+			return registry;
+		}
+	}
 }

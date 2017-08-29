@@ -46,3 +46,5 @@ Fm = (1 + Fm(a)) * (1 + Ff(l)) * (1 * Ff(g)) * … * (1 + Ff(x))
 
  - `BaseStatData.ToJSON()` method only serializes public properties and doesn't allow to serialize memebers.
  - Is `BaseStatData` needed? Can `Stat` be serialized directly?
+ - Applying global modfier to multiple stats of same type not supported. Eg. improved melee damage should apply to all melee damage type stats: sword damage, axe damage, etc.
+ - What is the reason of using  final stat modfier (F)? Is it needed at all?  

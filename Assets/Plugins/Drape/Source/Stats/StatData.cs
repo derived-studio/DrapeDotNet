@@ -20,9 +20,7 @@ namespace Drape
 
 		public Dependency[] dependencies = new Dependency[0];
 
-		public StatData(string name, int value = 0, Dictionary<string, float> dependencies = null) : this(name.ToSlug(), name, value, dependencies) { }
-
-		public StatData(string code, string name, int value, Dictionary<string, float> dependencies = null) : base(code, name, value)
+		public StatData(string code, string name, int value, Dictionary<string, float> dependencies) : base(code, name, value)
 		{
 			List<Dependency> list = new List<Dependency>();
 			if (dependencies != null) {

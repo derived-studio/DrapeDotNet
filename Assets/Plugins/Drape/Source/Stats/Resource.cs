@@ -11,7 +11,7 @@ namespace Drape
 
 		public Resource(ResourceData data, IRegistry registry) : base(data, registry)
 		{
-			_qty = data.value;
+			_qty = data.Value;
 			try {
 				Capacity = registry.Get<IStat>(data.capacity);
 			} catch (StatNotFoundException) {

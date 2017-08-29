@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Drape.Interfaces;
+using Drape.Slug;
 
 namespace Drape
 {
@@ -21,7 +22,7 @@ namespace Drape
 			}
 
 			string modName = this.Name + " totals";
-			_modTotals = new Modifier(new ModifierData(modName, this.Name, 0, 1, 0, 1), registry);
+			_modTotals = new Modifier(new ModifierData(modName.ToSlug(), modName, this.Name, 0, 1, 0, 1), registry);
 		}
 
 		/// <summary>

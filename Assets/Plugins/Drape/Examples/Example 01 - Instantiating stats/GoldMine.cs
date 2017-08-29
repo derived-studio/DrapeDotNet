@@ -5,13 +5,13 @@ namespace Drape.Eamples.Example1
 {
     public class GoldMine : MonoBehaviour
     {
-        private int startingValue = 0;
+		public Text goldLabel;
+		public Text outputLabel;
+		public Text capacityLabel;
+
+		private int startingValue = 0;
         private int startingOutput = 50;
         private int startingCapacity = 1000;
-
-        public Text goldLabel;
-        public Text outputLabel;
-        public Text capacityLabel;
 
         private Resource _gold;
         private Stat _goldCapacity;
@@ -25,20 +25,20 @@ namespace Drape.Eamples.Example1
             // ----------------------
             // Initializing registry
             // ----------------------
-            // Instance of stat registry is required by constructors.
+            // Registry instance is a dependecy required by stat constructor methods.
             // It stores references to all created stats. You can have one or more registries in the game.
             // In single player game you most likely need one registry.
             // In multiplayer game or rpg with evolving NPCs you would need registry per character.
             Registry registry = new Registry();
 
-            // ----------------------
-            // Initializing stats
-            // ----------------------
+            // --------------------------
+            // Initializing simple stats
+            // --------------------------
             // We are creating gold capacity and gold output stats and store references for later.
 
             // First Let's create gold capacity data.
             // Stats are created using stat data object, so let's create one.
-            // Simple stat data constructor requires stat code, name and starting value.
+            // Stat data constructor requires stat code, name and starting value.
             StatData goldCapacityData = new StatData("gold-capacity", "Gold capacity", startingCapacity);
             // Now we pass stat data into stat constructor
             _goldCapacity = new Stat(goldCapacityData, registry);

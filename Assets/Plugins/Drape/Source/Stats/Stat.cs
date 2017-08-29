@@ -4,7 +4,7 @@ using Drape.Slug;
 
 namespace Drape
 {
-	public class Stat : BaseStat<Stat, StatData>, IStat
+	public class Stat : BaseStat<StatData>, IStat
 	{
 		private List<Modifier> _modifiers = new List<Modifier>();
 		private Dictionary<IStat, float> _dependencies = new Dictionary<IStat, float>();

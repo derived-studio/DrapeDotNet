@@ -3,8 +3,7 @@ using Drape.TinyJson;
 
 namespace Drape
 {
-	public class BaseStat<TStat, TData> : IStat
-		where TStat : IStat
+	public class BaseStat<TData> : IStat
 		where TData : BaseStatData
 	{
 		protected TData _data;
@@ -20,7 +19,7 @@ namespace Drape
 		public BaseStat(TData data, IRegistry registry)
 		{
 			_data = data;
-			registry.Add<BaseStat<TStat, TData>>(this);
+			registry.Add<BaseStat<TData>>(this);
 		}
 
 		/// <summary>

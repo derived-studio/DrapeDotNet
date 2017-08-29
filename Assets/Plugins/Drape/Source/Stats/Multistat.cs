@@ -4,7 +4,7 @@ using Drape.Slug;
 
 namespace Drape
 {
-	public class Multistat : BaseStat<Stat, MultistatData>, IStat
+	public class Multistat : BaseStat<MultistatData>, IStat
 	{
 		public IStat[] stats { get; private set; }
 

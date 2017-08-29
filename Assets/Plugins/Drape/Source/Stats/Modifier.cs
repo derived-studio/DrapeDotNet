@@ -3,7 +3,7 @@ using Drape.Slug;
 
 namespace Drape
 {
-    public class Modifier : BaseStat<Modifier, ModifierData>, IStat
+    public class Modifier : BaseStat<ModifierData>, IStat
     {
         public string Stat {  get { return _data.stat;  } }
 

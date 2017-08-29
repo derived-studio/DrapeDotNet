@@ -3,7 +3,7 @@ using Drape.Exceptions;
 
 namespace Drape
 {
-	public class Resource : BaseStat<Resource, ResourceData>, IStat, IUpdatable
+	public class Resource : BaseStat<ResourceData>, IStat, IUpdatable
 	{
 		private float _qty;
 		public IStat Capacity { get; private set; }

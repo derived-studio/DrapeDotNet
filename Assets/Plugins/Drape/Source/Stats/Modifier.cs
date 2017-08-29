@@ -5,26 +5,22 @@ namespace Drape
 {
     public class Modifier : BaseStat<ModifierData>, IStat
     {
-        public string Stat {  get { return _data.stat;  } }
+        public string Stat {  get { return _data.Stat;  } }
 
         public int RawFlat {
-            get { return _data.rawFlat; }
-            internal set { _data.rawFlat = value; }
+            get { return _data.RawFlat; }
         }
 
         public float RawFactor {
-            get { return _data.rawFactor; }
-            internal set { _data.rawFactor = value; }
+            get { return _data.RawFactor; }
         }
 
         public int FinalFlat {
-            get { return _data.finalFlat; }
-            internal set { _data.finalFlat = value; }
+            get { return _data.FinalFlat; }
         }
 
         public float FinalFactor {
-            get { return _data.finalFactor; }
-            internal set { _data.finalFactor = value; }
+            get { return _data.FinalFactor; }
         }
 
         /// <summary>
@@ -41,7 +37,7 @@ namespace Drape
         public float GetValue(float baseValue)
         {
             // todo: unit test type casting int-> float
-            return ((baseValue + _data.rawFlat) * _data.rawFactor + _data.finalFlat) * _data.finalFactor;
+            return ((baseValue + _data.RawFlat) * _data.RawFactor + _data.FinalFlat) * _data.FinalFactor;
         }
     }
 }

@@ -13,15 +13,15 @@ namespace Drape
 		{
 			_qty = data.Value;
 			try {
-				Capacity = registry.Get<IStat>(data.capacity);
+				Capacity = registry.Get<IStat>(data.Capacity);
 			} catch (StatNotFoundException) {
-				throw new StatNotFoundException(data.capacity + " (Resource::.output) ");
+				throw new StatNotFoundException(data.Capacity + " (Resource::.output) ");
 			}
 
 			try {
-				Output = registry.Get<IStat>(data.output);
+				Output = registry.Get<IStat>(data.Output);
 			} catch (StatNotFoundException) {
-				throw new StatNotFoundException(data.output + " (Resource::.output) ");
+				throw new StatNotFoundException(data.Output + " (Resource::.output) ");
 			}
 		}
 

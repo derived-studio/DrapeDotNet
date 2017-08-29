@@ -4,11 +4,11 @@ namespace Drape
 	[System.Serializable]
 	public class ModifierData : BaseStatData
 	{
-		public string stat;
-		public int rawFlat;
-		public float rawFactor;
-		public int finalFlat;
-		public float finalFactor;
+		public string Stat { get; private set; }
+		public int RawFlat { get; private set; }
+		public float RawFactor { get; private set; }
+		public int FinalFlat { get; private set; }
+		public float FinalFactor { get; private set; }
 
 		public ModifierData(
 			string code,
@@ -20,11 +20,11 @@ namespace Drape
 			float finalFactor
 		) : base(code, name, 0)
 		{
-			this.stat = stat;
-			this.rawFlat = rawFlat;
-			this.rawFactor = rawFactor;
-			this.finalFlat = finalFlat;
-			this.finalFactor = finalFactor;
+			this.Stat = stat;
+			this.RawFlat = rawFlat;
+			this.RawFactor = rawFactor;
+			this.FinalFlat = finalFlat;
+			this.FinalFactor = finalFactor;
 		}
 	}
 }

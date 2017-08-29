@@ -9,7 +9,7 @@ namespace Drape
 		private List<Modifier> _modifiers = new List<Modifier>();
 		private Dictionary<IStat, float> _dependencies = new Dictionary<IStat, float>();
 
-		private Modifier _modTotals;
+		private ModTotals _modTotals;
 
 		public Stat(StatData data, IRegistry registry) : base(data, registry)
 		{
@@ -22,7 +22,7 @@ namespace Drape
 			}
 
 			string modName = this.Name + " totals";
-			_modTotals = new Modifier(new ModifierData(modName.ToSlug(), modName, this.Name, 0, 1, 0, 1), registry);
+			_modTotals = new ModTotals(new ModifierData(modName.ToSlug(), modName, this.Name, 0, 1, 0, 1), registry);
 		}
 
 		/// <summary>
@@ -100,6 +100,22 @@ namespace Drape
 			_modTotals.RawFactor *= (1 + modifier.RawFactor);
 			_modTotals.FinalFlat += modifier.FinalFlat;
 			_modTotals.FinalFactor *= (1 + modifier.FinalFactor);
+		}
+
+		// ModTotals is a copy of Modifier class but has public members
+		private class ModTotals: BaseStat<ModifierData>, IStat
+		{
+			public float RawFlat { get; set; }
+			public float RawFactor { get; set; }
+			public float FinalFlat { get; set; }
+			public float FinalFactor { get; set; }
+
+			public ModTotals(ModifierData data, IRegistry registry) : base(data, registry) { }
+
+			public float GetValue(float baseValue)
+			{
+				return ((baseValue + _data.RawFlat) * _data.RawFactor + _data.FinalFlat) * _data.FinalFactor;
+			}
 		}
 
 	}

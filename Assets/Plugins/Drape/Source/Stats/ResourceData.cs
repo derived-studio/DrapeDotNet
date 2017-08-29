@@ -5,14 +5,14 @@ namespace Drape
 	[System.Serializable]
 	public class ResourceData : BaseStatData
 	{
-		public string capacity;
-		public string output;
+		public string Capacity { get; private set; }
+		public string Output { get; private set; }
 
 		public ResourceData(string code, string name, int value, string capacity, string output)
 			: base(code, name, value)
 		{
-			this.capacity = capacity;
-			this.output = output;
+			this.Capacity = capacity;
+			this.Output = output;
 		}
 	}
 }

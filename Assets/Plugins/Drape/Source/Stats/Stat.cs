@@ -9,7 +9,9 @@ namespace Drape
 		private List<Modifier> _modifiers = new List<Modifier>();
 		private Dictionary<IStat, float> _dependencies = new Dictionary<IStat, float>();
 
-		private ModTotals _modTotals;
+		private Modifier _modifierTotals;
+
+		private string ModTotalsName { get { return this.Name + " totals"; } }
 
 		public Stat(StatData data, IRegistry registry) : base(data, registry)
 		{
@@ -21,8 +23,7 @@ namespace Drape
 				}
 			}
 
-			string modName = this.Name + " totals";
-			_modTotals = new ModTotals(new ModifierData(modName.ToSlug(), modName, this.Name, 0, 1, 0, 1), registry);
+			ResetModifierTotals();
 		}
 
 		/// <summary>
@@ -40,7 +41,7 @@ namespace Drape
 					depsValue += stat.Value * factor;
 				}
 				float baseValue = base.BaseValue + depsValue;
-				float value = _modTotals.GetValue(baseValue);
+				float value = _modifierTotals.GetValue(baseValue);
 				return value;
 			}
 		}
@@ -82,10 +83,7 @@ namespace Drape
 
 		private void ResetModifierTotals()
 		{
-			_modTotals.RawFlat = 0;
-			_modTotals.RawFactor = 1;
-			_modTotals.FinalFlat = 0;
-			_modTotals.FinalFactor = 1;
+			_modifierTotals = new Modifier(new ModifierData(ModTotalsName.ToSlug(), ModTotalsName, this.Name, 0, 1, 0, 1), _registry);
 
 			if (_modifiers != null) {
 				foreach (Modifier modifier in _modifiers) {
@@ -96,12 +94,16 @@ namespace Drape
 
 		private void AddModifierValues(Modifier modifier)
 		{
-			_modTotals.RawFlat += modifier.RawFlat;
-			_modTotals.RawFactor *= (1 + modifier.RawFactor);
-			_modTotals.FinalFlat += modifier.FinalFlat;
-			_modTotals.FinalFactor *= (1 + modifier.FinalFactor);
+			int rawFlat = _modifierTotals.RawFlat + modifier.RawFlat;
+			float rawFactor = _modifierTotals.RawFactor * (1 + modifier.RawFactor);
+			int finalFlat = _modifierTotals.FinalFlat + modifier.FinalFlat;
+			float finalFactor = _modifierTotals.FinalFactor * (1 + modifier.FinalFactor);
+
+			_modifierTotals = new Modifier(new ModifierData(ModTotalsName.ToSlug(), ModTotalsName, this.Name, rawFlat, rawFactor, finalFlat, finalFactor), _registry);
 		}
 
+
+		/*
 		// ModTotals is a copy of Modifier class but has public members
 		private class ModTotals: BaseStat<ModifierData>, IStat
 		{
@@ -117,6 +119,6 @@ namespace Drape
 				return ((baseValue + _data.RawFlat) * _data.RawFactor + _data.FinalFlat) * _data.FinalFactor;
 			}
 		}
-
+		*/
 	}
 }

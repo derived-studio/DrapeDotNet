@@ -6,6 +6,7 @@ namespace Drape
 		where TData : BaseStatData
 	{
 		protected TData _data;
+		protected IRegistry _registry;
 
 		public string Code { get { return _data.Code; } }
 
@@ -18,6 +19,7 @@ namespace Drape
 		public BaseStat(TData data, IRegistry registry)
 		{
 			_data = data;
+			_registry = registry; 
 			registry.Add<BaseStat<TData>>(this);
 		}
 

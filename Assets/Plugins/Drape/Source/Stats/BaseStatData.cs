@@ -1,4 +1,5 @@
-﻿namespace Drape
+﻿using Drape.Slug;
+namespace Drape
 {
 	/// <summary>
 	/// Plane data class facillitating stat serialization
@@ -6,7 +7,13 @@
 	[System.Serializable]
 	public class BaseStatData
 	{
-		public string Code { get; set; }
+		private string _code;
+		public string Code
+		{
+			get { return _code != null ? _code : Name.ToSlug(); }
+			set { _code = value; }
+		}
+
 		public string Name { get; set; }
 		public int Value { get; set; }
 	}

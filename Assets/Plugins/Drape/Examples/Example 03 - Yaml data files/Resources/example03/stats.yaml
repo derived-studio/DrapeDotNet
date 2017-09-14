@@ -1,8 +1,8 @@
 ---
-code: gold-output
+#code: gold-output
 name: Gold output
 value: 50
 ---
-code: gold-capacity
+#code: gold-capacity
 name: Gold Capacity
 value: 1000

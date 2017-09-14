@@ -37,7 +37,6 @@ namespace Drape.Eamples.Example3
 				{ new YamlInstaller<Modifier, ModifierData>((Resources.Load("example03/modifiers") as TextAsset).text) },
 			});
 
-
 			// --------------------
 			// Creating registry
 			// --------------------

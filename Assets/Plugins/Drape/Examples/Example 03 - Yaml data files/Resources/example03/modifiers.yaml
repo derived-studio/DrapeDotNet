@@ -1,17 +1,10 @@
 ---
-code: broken-storage
+#code: broken-storage
 name: Broken storage
-value: 0
 stat: gold-capacity
 raw-flat: -500
-raw-factor: 0
-final-flat: 0
-final-factor: 0
 ---
-code: faster-mining
+#code: faster-mining
 name: Faster mining
-value: 0
 stat: gold-output
-raw-flat: 0
-final-flat: 0
 final-factor: 0.5

@@ -9,7 +9,7 @@ namespace Drape
 		private List<Modifier> _modifiers = new List<Modifier>();
 		private Dictionary<IStat, float> _dependencies = new Dictionary<IStat, float>();
 
-		private Modifier _modifierTotals;
+		private Modifier _modTotals;
 
 		private string ModTotalsName { get { return this.Name + " totals"; } }
 
@@ -18,8 +18,8 @@ namespace Drape
 			// process for serialization
 			if (data.dependencies != null) {
 				foreach (StatData.Dependency dep in data.dependencies) {
-					IStat stat = registry.Get<IStat>(dep.code);
-					_dependencies.Add(stat, dep.value);
+					IStat stat = registry.Get<IStat>(dep.Code);
+					_dependencies.Add(stat, dep.Value);
 				}
 			}
 
@@ -41,7 +41,7 @@ namespace Drape
 					depsValue += stat.Value * factor;
 				}
 				float baseValue = base.BaseValue + depsValue;
-				float value = _modifierTotals.GetValue(baseValue);
+				float value = _modTotals.GetValue(baseValue);
 				return value;
 			}
 		}
@@ -83,7 +83,7 @@ namespace Drape
 
 		private void ResetModifierTotals()
 		{
-			_modifierTotals = new Modifier(new ModifierData(ModTotalsName.ToSlug(), ModTotalsName, this.Name, 0, 1, 0, 1), _registry);
+			_modTotals = new Modifier(new ModifierData(ModTotalsName.ToSlug(), ModTotalsName, this.Name, 0, 1, 0, 1), _registry);
 
 			if (_modifiers != null) {
 				foreach (Modifier modifier in _modifiers) {
@@ -94,12 +94,12 @@ namespace Drape
 
 		private void AddModifierValues(Modifier modifier)
 		{
-			int rawFlat = _modifierTotals.RawFlat + modifier.RawFlat;
-			float rawFactor = _modifierTotals.RawFactor * (1 + modifier.RawFactor);
-			int finalFlat = _modifierTotals.FinalFlat + modifier.FinalFlat;
-			float finalFactor = _modifierTotals.FinalFactor * (1 + modifier.FinalFactor);
+			int rawFlat = _modTotals.RawFlat + modifier.RawFlat;
+			float rawFactor = _modTotals.RawFactor * (1 + modifier.RawFactor);
+			int finalFlat = _modTotals.FinalFlat + modifier.FinalFlat;
+			float finalFactor = _modTotals.FinalFactor * (1 + modifier.FinalFactor);
 
-			_modifierTotals = new Modifier(new ModifierData(ModTotalsName.ToSlug(), ModTotalsName, this.Name, rawFlat, rawFactor, finalFlat, finalFactor), _registry);
+			_modTotals = new Modifier(new ModifierData(ModTotalsName.ToSlug(), ModTotalsName, this.Name, rawFlat, rawFactor, finalFlat, finalFactor), _registry);
 		}
 
 

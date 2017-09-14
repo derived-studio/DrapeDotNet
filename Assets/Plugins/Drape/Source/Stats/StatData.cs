@@ -8,13 +8,13 @@ namespace Drape
 		[System.Serializable]
 		public class Dependency
 		{
-			public string code;
-			public float value;
+			public string Code { get; private set; }
+			public float Value { get; private set; }
 
 			public Dependency(string code, float value)
 			{
-				this.code = code;
-				this.value = value;
+				this.Code = code;
+				this.Value = value;
 			}
 		}
 

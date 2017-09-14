@@ -9,12 +9,5 @@
 		public string Code { get; set; }
 		public string Name { get; set; }
 		public int Value { get; set; }
-
-		public BaseStatData(string code, string name, int value)
-		{
-			this.Code = code;
-			this.Name = name;
-			this.Value = value;
-		}
 	}
 }

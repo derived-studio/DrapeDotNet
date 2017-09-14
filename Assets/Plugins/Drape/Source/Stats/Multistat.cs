@@ -6,16 +6,16 @@ namespace Drape
 {
 	public class Multistat : BaseStat<MultistatData>, IStat
 	{
-		public IStat[] stats { get; private set; }
+		public IStat[] Stats { get; private set; }
 
 		public Multistat(MultistatData data, IRegistry registry) : base(data, registry)
 		{
-			if (data.stats != null && data.stats.Length > 0) {
+			if (data.Stats != null && data.Stats.Length > 0) {
 				List<IStat> list = new List<IStat>();
-				foreach (string code in data.stats) {
+				foreach (string code in data.Stats) {
 					list.Add(registry.Get<IStat>(code));
 				}
-				stats = list.ToArray();
+				Stats = list.ToArray();
 			}
 		}
 
@@ -27,7 +27,7 @@ namespace Drape
 			get
 			{
 				float value = BaseValue;
-				foreach (Stat stat in stats) {
+				foreach (Stat stat in Stats) {
 					value += stat.Value;
 				}
 				return value;

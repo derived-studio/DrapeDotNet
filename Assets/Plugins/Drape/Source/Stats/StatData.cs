@@ -8,8 +8,8 @@ namespace Drape
 		[System.Serializable]
 		public class Dependency
 		{
-			public string Code { get; private set; }
-			public float Value { get; private set; }
+			public string Code { get; set; }
+			public float Value { get; set; }
 
 			public Dependency(string code, float value)
 			{
@@ -18,17 +18,11 @@ namespace Drape
 			}
 		}
 
-		public Dependency[] dependencies = new Dependency[0];
+		Dependency[] _dependencies = new Dependency[0];
 
-		public StatData(string code, string name, int value, Dictionary<string, float> dependencies) : base(code, name, value)
-		{
-			List<Dependency> list = new List<Dependency>();
-			if (dependencies != null) {
-				foreach (KeyValuePair<string, float> pair in dependencies) {
-					list.Add(new Dependency(pair.Key, pair.Value));
-				}
-			}
-			this.dependencies = list.ToArray();
+		public Dependency[] Dependencies {
+			get { return _dependencies; }
+			set { _dependencies = value; }
 		}
 	}
 }

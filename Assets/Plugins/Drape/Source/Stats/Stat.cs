@@ -16,8 +16,8 @@ namespace Drape
 		public Stat(StatData data, IRegistry registry) : base(data, registry)
 		{
 			// process for serialization
-			if (data.dependencies != null) {
-				foreach (StatData.Dependency dep in data.dependencies) {
+			if (data.Dependencies != null) {
+				foreach (StatData.Dependency dep in data.Dependencies) {
 					IStat stat = registry.Get<IStat>(dep.Code);
 					_dependencies.Add(stat, dep.Value);
 				}
@@ -57,7 +57,7 @@ namespace Drape
 			}
 		}
 
-		public StatData.Dependency[] Dependencies { get { return _data.dependencies; } }
+		public StatData.Dependency[] Dependencies { get { return _data.Dependencies; } }
 
 		public void AddModifier(Modifier modifier)
 		{
@@ -83,7 +83,15 @@ namespace Drape
 
 		private void ResetModifierTotals()
 		{
-			_modTotals = new Modifier(new ModifierData(ModTotalsName.ToSlug(), ModTotalsName, this.Name, 0, 1, 0, 1), _registry);
+			_modTotals = new Modifier(new ModifierData() {
+				Code = ModTotalsName.ToSlug(),
+				Name = ModTotalsName,
+				Stat = this.Code,
+				RawFlat = 0,
+				RawFactor = 1,
+				FinalFlat = 0,
+				FinalFactor = 1
+			}, _registry);
 
 			if (_modifiers != null) {
 				foreach (Modifier modifier in _modifiers) {
@@ -99,26 +107,15 @@ namespace Drape
 			int finalFlat = _modTotals.FinalFlat + modifier.FinalFlat;
 			float finalFactor = _modTotals.FinalFactor * (1 + modifier.FinalFactor);
 
-			_modTotals = new Modifier(new ModifierData(ModTotalsName.ToSlug(), ModTotalsName, this.Name, rawFlat, rawFactor, finalFlat, finalFactor), _registry);
+			_modTotals = new Modifier(new ModifierData() {
+				Code = ModTotalsName.ToSlug(),
+				Name = ModTotalsName,
+				Stat = this.Code,
+				RawFactor = rawFactor,
+				RawFlat = rawFlat,
+				FinalFlat = finalFlat,
+				FinalFactor = finalFactor
+			}, _registry);
 		}
-
-
-		/*
-		// ModTotals is a copy of Modifier class but has public members
-		private class ModTotals: BaseStat<ModifierData>, IStat
-		{
-			public float RawFlat { get; set; }
-			public float RawFactor { get; set; }
-			public float FinalFlat { get; set; }
-			public float FinalFactor { get; set; }
-
-			public ModTotals(ModifierData data, IRegistry registry) : base(data, registry) { }
-
-			public float GetValue(float baseValue)
-			{
-				return ((baseValue + _data.RawFlat) * _data.RawFactor + _data.FinalFlat) * _data.FinalFactor;
-			}
-		}
-		*/
 	}
 }

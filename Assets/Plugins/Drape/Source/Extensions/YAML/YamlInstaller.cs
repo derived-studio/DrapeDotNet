@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Drape.Interfaces;
 
-namespace Drape.Eamples.Example3
+namespace Drape.YAML
 {
 	class YamlInstaller<TStat, TStatData> : IInstaller
 		where TStat : IStat

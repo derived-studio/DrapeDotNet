@@ -23,7 +23,7 @@ using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Core;
 using YamlDotNet.Core.Events;
 
-namespace Drape.Eamples.Example3
+namespace Drape.YAML
 {
 	public class YamlLoader
 	{

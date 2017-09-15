@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using Drape.Interfaces;
+using Drape.JSON;
 using System.Collections.Generic;
 
 namespace Drape.Eamples.Example2

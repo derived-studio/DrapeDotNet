@@ -3,7 +3,7 @@ using Drape.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Drape
+namespace Drape.JSON
 {
 	class JSONInstaller<TStat, TStatData> : IInstaller
 		where TStat : IStat

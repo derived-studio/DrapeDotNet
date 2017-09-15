@@ -12,7 +12,6 @@ namespace Drape.Eamples.Example3
 
 		public YamlInstaller(string data)
 		{
-			UnityEngine.Debug.Log(data);
 			List<TStatData> statData = new List<TStatData>();
 			statData = yamlLoader.FromString<TStatData>(data);
 			statDataArr = statData.ToArray();

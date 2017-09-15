@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Drape;
 
 namespace Drape.Eamples.Example1
 {
@@ -39,17 +40,24 @@ namespace Drape.Eamples.Example1
             // First Let's create gold capacity data.
             // Stats are created using stat data object, so let's create one.
             // Stat data constructor requires stat code, name and starting value.
-            StatData goldCapacityData = new StatData("gold-capacity", "Gold capacity", startingCapacity);
+            StatData goldCapacityData = new StatData() {
+				Code = "gold-capacity",
+				Name = "Gold capacity",
+				Value = startingCapacity
+			};
             // Now we pass stat data into stat constructor
             _goldCapacity = new Stat(goldCapacityData, registry);
             // Once created stat object has ToJSON() method useful for logging or serialization.
-            Debug.Log("[stat] " + _goldCapacity.ToJSON());
+            Debug.Log("[stat] " + _goldCapacity.ToString());
 
             // Next, let's create gold output stat
             // In most cases stat data reference is not needed so we can create object directly from the constructor
-            _goldOutput = new Stat(new StatData("Gold output", startingOutput), registry);
+            _goldOutput = new Stat(new StatData() {
+				Name = "Gold output",
+				Value = startingOutput
+			}, registry);
             // Lets debug log it, this time using registry to access it
-            Debug.Log("[stat] " + registry.Get<Stat>("gold-output").ToJSON());
+            Debug.Log("[stat] " + registry.Get<Stat>("gold-output").ToString());
 
             // ----------------------
             // Initializing resources
@@ -58,8 +66,13 @@ namespace Drape.Eamples.Example1
             // It is design to facitlitate managing resource-like stats.
 
             // Let's create gold resource stat that depends on above capacity and output.
-            _gold = new Resource(new ResourceData("Gold", startingValue, _goldCapacity.Code, _goldOutput.Code), registry);
-            Debug.Log("[resource] " + _gold.ToJSON());
+            _gold = new Resource(new ResourceData() {
+				Name = "Gold",
+				Value = startingValue,
+				Capacity = _goldCapacity.Code,
+				Output = _goldOutput.Code
+			}, registry);
+            Debug.Log("[resource] " + _gold.ToString());
 
 
             // ----------------------
@@ -69,14 +82,22 @@ namespace Drape.Eamples.Example1
             // Modifiers can have both, positive and negative vaues.
 
             // Lets create faster mining modifier that will improve total output value by 50%.
-            ModifierData outputMod = new ModifierData("Faster mining", _goldOutput.Code, 0, 0, 0, 0.5f);
+            ModifierData outputMod = new ModifierData() {
+				Name = "Faster mining",
+				Stat = _goldOutput.Code,
+				FinalFactor = .5f
+			};
             _goldOutputModifier = new Modifier(outputMod, registry);
-            Debug.Log("[modifier] " + _goldOutputModifier.ToJSON());
+            Debug.Log("[modifier] " + _goldOutputModifier.ToString());
 
             // Lets create btoken storage modfier that will reduce mine capacity by 500 units.
-            ModifierData capacityMod = new ModifierData("Brokene storage", _goldCapacity.Code, -500, 0, 0, 0);
+            ModifierData capacityMod = new ModifierData() {
+				Name = "Brokene storage",
+				Stat = _goldCapacity.Code,
+				RawFlat = -500
+			};
             _goldCapacityModifier = new Modifier(capacityMod, registry);
-            Debug.Log("[modifier] " + _goldCapacityModifier.ToJSON());
+            Debug.Log("[modifier] " + _goldCapacityModifier.ToString());
         }
 
         void Update()
@@ -128,7 +149,6 @@ namespace Drape.Eamples.Example1
                 _goldOutput.ClearMods();
             }
         }
-
 
         /// <summary>
         /// Empties mine, resetting gold stat value to 0

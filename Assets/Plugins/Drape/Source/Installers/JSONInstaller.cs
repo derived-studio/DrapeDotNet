@@ -24,12 +24,12 @@ namespace Drape
 				try {
 					statDataArr = JsonConvert.DeserializeObject<TStatData[]>(jsonString, Settings);
 				} catch (System.Exception e) {
-					throw new InvalidJSONException("Couldn't parse JSON string for: ", jsonString + ", exception: " + e.ToString());
+					throw new InvalidJsonException("Couldn't parse JSON string for: ", jsonString + ", exception: " + e.ToString());
 				}
 			} else if (jsonString.StartsWith("{") && jsonString.EndsWith("}")) {
-				throw new InvalidJSONException("JSON String is an object but should be an array", jsonString);
+				throw new InvalidJsonException("JSON String is an object but should be an array", jsonString);
 			} else {
-				throw new InvalidJSONException("Couldn't parse JSON string", jsonString);
+				throw new InvalidJsonException("Couldn't parse JSON string", jsonString);
 			}
 
 			JSON = jsonString;

@@ -9,12 +9,14 @@ namespace Drape
 		protected IRegistry _registry;
 
 		public string Code { get { return _data.Code; } }
-
 		public string Name { get { return _data.Name; } }
-		
+
 		public int BaseValue { get; set; }
 
-		public virtual float Value { get { throw new System.NotImplementedException(); } }
+		// should be equivalent to GetValue() with no parameter
+		public virtual float Value { get { return GetValue(); } }
+		public virtual float GetValue() { return GetValue(BaseValue); }
+		public virtual float GetValue(float baseValue) { return baseValue; }
 
 		public BaseStat(TData data, IRegistry registry)
 		{

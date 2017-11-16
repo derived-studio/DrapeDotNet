@@ -29,21 +29,15 @@ namespace Drape
 		/// <summary>
 		/// Stat value after applying modifiers and dependencies.
 		/// </summary>
-		public override float Value
+		public override float GetValue(float baseValue)
 		{
-			get
-			{
-				float depsValue = 0;
-				// todo: is there more efficient way?
-				foreach (KeyValuePair<IStat, float> entry in _dependencies) {
-					IStat stat = entry.Key;
-					float factor = entry.Value;
-					depsValue += stat.Value * factor;
-				}
-				float baseValue = base.BaseValue + depsValue;
-				float value = _modTotals.GetValue(baseValue);
-				return value;
+			float depsValue = 0;
+			foreach (KeyValuePair<IStat, float> entry in _dependencies) {
+				IStat stat = entry.Key;
+				float factor = entry.Value;
+				depsValue += stat.Value * factor;
 			}
+			return _modTotals.GetValue(baseValue + depsValue);
 		}
 
 		/// <summary>

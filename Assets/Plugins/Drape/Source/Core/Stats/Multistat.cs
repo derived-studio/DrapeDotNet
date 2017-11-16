@@ -19,19 +19,13 @@ namespace Drape
 			}
 		}
 
-		/// <summary>
-		/// Value by default is a sum of all stats.
-		/// </summary>
-		public override float Value
+		public override float GetValue(float baseValue)
 		{
-			get
-			{
-				float value = BaseValue;
-				foreach (Stat stat in Stats) {
-					value += stat.Value;
-				}
-				return value;
+			float value = baseValue;
+			foreach (Stat stat in Stats) {
+				value += stat.GetValue(baseValue);
 			}
+			return value;
 		}
 	}
 }

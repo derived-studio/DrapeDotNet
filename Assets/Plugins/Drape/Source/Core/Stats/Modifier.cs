@@ -23,18 +23,12 @@ namespace Drape
             get { return _data.FinalFactor; }
         }
 
-        /// <summary>
-        /// Relative modifier value calculated for base value equals 1.
-        /// Shouldn't be used to anything else but comparing modifiers.
-        /// </summary>
-        public new float Value { get { return GetValue(1); } }
-
         public Modifier(ModifierData data, IRegistry registry) : base(data, registry) { }
 
         /// <summary>
         /// Calculate value for baseValue affected by modifier.
         /// </summary>
-        public float GetValue(float baseValue)
+        public override float GetValue(float baseValue)
         {
             // todo: unit test type casting int-> float
             return ((baseValue + _data.RawFlat) * _data.RawFactor + _data.FinalFlat) * _data.FinalFactor;

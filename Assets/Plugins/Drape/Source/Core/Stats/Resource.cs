@@ -26,6 +26,7 @@ namespace Drape
 		}
 
 		public override float Value { get { return _qty; } }
+		public override float GetValue() { return Value; }
 
 		public void Update(float deltaTime)
 		{

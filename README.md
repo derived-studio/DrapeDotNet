@@ -42,6 +42,16 @@ Opt 2
 Fm = (1 + Fm(a)) * (1 + Ff(l)) * (1 * Ff(g)) * … * (1 + Ff(x))
 -->
 
+## Serialization
+
+### Json
+JSON serialization supported with [SaladLab fork](https://github.com/SaladLab/Json.Net.Unity3D) of [Newtonsoft Json.NET](https://www.newtonsoft.com/json). You can get latest DLL file from [here](https://github.com/SaladLab/Json.Net.Unity3D/releases).
+
+Private setter serialization supported with custom contract resolver method as described in [Daniel's blog](https://danielwertheim.se/json-net-private-setters/).
+
+### Yaml
+Yaml serialization supported with [YamlDotNet](https://github.com/aaubry/YamlDotNet). Get latest release dll from [here](https://ci.appveyor.com/project/aaubry/yamldotnet/build/4.2.2-pre0425/artifacts).
+
 ## Known issues
 
  - `BaseStatData.ToJSON()` method only serializes public properties and doesn't allow to serialize memebers.

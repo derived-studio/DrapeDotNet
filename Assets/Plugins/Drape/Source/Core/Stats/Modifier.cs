@@ -5,22 +5,22 @@ namespace Drape
 {
     public class Modifier : BaseStat<ModifierData>, IStat
     {
-        public string Stat {  get { return _data.Stat;  } }
+        public string Stat {  get { return Data.Stat;  } }
 
         public int RawFlat {
-            get { return _data.RawFlat; }
+            get { return Data.RawFlat; }
         }
 
         public float RawFactor {
-            get { return _data.RawFactor; }
+            get { return Data.RawFactor; }
         }
 
         public int FinalFlat {
-            get { return _data.FinalFlat; }
+            get { return Data.FinalFlat; }
         }
 
         public float FinalFactor {
-            get { return _data.FinalFactor; }
+            get { return Data.FinalFactor; }
         }
 
         public Modifier(ModifierData data, IRegistry registry) : base(data, registry) { }
@@ -31,7 +31,7 @@ namespace Drape
         public override float GetValue(float baseValue)
         {
             // todo: unit test type casting int-> float
-            return ((baseValue + _data.RawFlat) * _data.RawFactor + _data.FinalFlat) * _data.FinalFactor;
+            return ((baseValue + Data.RawFlat) * Data.RawFactor + Data.FinalFlat) * Data.FinalFactor;
         }
     }
 }

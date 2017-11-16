@@ -51,7 +51,7 @@ namespace Drape
 			}
 		}
 
-		public StatData.Dependency[] Dependencies { get { return _data.Dependencies; } }
+		public StatData.Dependency[] Dependencies { get { return Data.Dependencies; } }
 
 		public void AddModifier(Modifier modifier)
 		{
@@ -85,7 +85,7 @@ namespace Drape
 				RawFactor = 1,
 				FinalFlat = 0,
 				FinalFactor = 1
-			}, _registry);
+			}, Registry);
 
 			if (_modifiers != null) {
 				foreach (Modifier modifier in _modifiers) {
@@ -109,7 +109,7 @@ namespace Drape
 				RawFlat = rawFlat,
 				FinalFlat = finalFlat,
 				FinalFactor = finalFactor
-			}, _registry);
+			}, Registry);
 		}
 	}
 }

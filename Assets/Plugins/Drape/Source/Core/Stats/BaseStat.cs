@@ -5,11 +5,11 @@ namespace Drape
 	public class BaseStat<TData> : IStat
 		where TData : BaseStatData
 	{
-		protected TData _data;
-		protected IRegistry _registry;
+		public TData Data { get; protected set; }
+		public IRegistry Registry { get; protected set; }
 
-		public string Code { get { return _data.Code; } }
-		public string Name { get { return _data.Name; } }
+		public string Code { get { return Data.Code; } }
+		public string Name { get { return Data.Name; } }
 
 		public int BaseValue { get; set; }
 
@@ -20,9 +20,9 @@ namespace Drape
 
 		public BaseStat(TData data, IRegistry registry)
 		{
-			_data = data;
-			_registry = registry; 
-			BaseValue = _data.Value;
+			Data = data;
+			Registry = registry; 
+			BaseValue = Data.Value;
 			registry.Add<BaseStat<TData>>(this);
 		}
 

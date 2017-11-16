@@ -11,8 +11,8 @@ namespace Drape
 		public string Code { get { return _data.Code; } }
 
 		public string Name { get { return _data.Name; } }
-
-		public int BaseValue { get { return _data.Value; } }
+		
+		public int BaseValue { get; set; }
 
 		public virtual float Value { get { throw new System.NotImplementedException(); } }
 
@@ -20,6 +20,7 @@ namespace Drape
 		{
 			_data = data;
 			_registry = registry; 
+			BaseValue = _data.Value;
 			registry.Add<BaseStat<TData>>(this);
 		}
 

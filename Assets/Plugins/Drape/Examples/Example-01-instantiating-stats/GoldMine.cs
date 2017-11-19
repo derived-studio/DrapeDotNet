@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Drape;
 
-namespace Drape.Eamples.Example1
+namespace Drape.Eamples.InstantiatingStats
 {
     public class GoldMine : MonoBehaviour
     {

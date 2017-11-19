@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Drape.Interfaces;
 using Drape.YAML;
 
-namespace Drape.Eamples.Example3
+namespace Drape.Eamples.YamlDataFiles
 {
 	public class GoldMine : MonoBehaviour
 	{

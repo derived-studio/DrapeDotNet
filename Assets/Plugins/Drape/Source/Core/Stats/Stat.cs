@@ -85,7 +85,7 @@ namespace Drape
 				RawFactor = 1,
 				FinalFlat = 0,
 				FinalFactor = 1
-			}, Registry);
+			}, null);
 
 			if (_modifiers != null) {
 				foreach (Modifier modifier in _modifiers) {
@@ -109,7 +109,7 @@ namespace Drape
 				RawFlat = rawFlat,
 				FinalFlat = finalFlat,
 				FinalFactor = finalFactor
-			}, Registry);
+			}, null);
 		}
 	}
 }

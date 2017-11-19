@@ -23,7 +23,9 @@ namespace Drape
 			Data = data;
 			Registry = registry; 
 			BaseValue = Data.Value;
-			registry.Add<BaseStat<TData>>(this);
+			if (registry != null) {
+				registry.Add<BaseStat<TData>>(this);
+			}
 		}
 
 		public override string ToString()

@@ -15,7 +15,9 @@ namespace Drape
 
 		private string ModTotalsName { get { return this.Name + " totals"; } }
 
-		public LocalStat(StatData data, Stat globalStat) : base(data, globalStat.Registry)
+		public new IRegistry Registry { get { return _globalStat.Registry; } }
+
+		public LocalStat(StatData data, Stat globalStat) : base(data, null)
 		{
 			_globalStat = globalStat;
 		}

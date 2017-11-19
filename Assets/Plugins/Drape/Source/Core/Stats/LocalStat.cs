@@ -10,16 +10,15 @@ namespace Drape
 		private List<Modifier> _modifiers = new List<Modifier>();
 		private Dictionary<IStat, float> _dependencies = new Dictionary<IStat, float>();
 
-		private Modifier _modTotals;
-		private Stat _globalStat;
+		private Stat _statRef;
 
 		private string ModTotalsName { get { return this.Name + " totals"; } }
 
-		public new IRegistry Registry { get { return _globalStat.Registry; } }
+		public new IRegistry Registry { get { return _statRef.Registry; } }
 
-		public LocalStat(StatData data, Stat globalStat) : base(data, null)
+		public LocalStat(Stat stat) : base(stat.Data, null)
 		{
-			_globalStat = globalStat;
+			_statRef = stat;
 		}
 
 		/// <summary>
@@ -28,7 +27,7 @@ namespace Drape
 		public override float GetValue(float baseValue)
 		{
 			float localValue = base.GetValue(baseValue);
-			return _globalStat.GetValue(localValue);
+			return _statRef.GetValue(localValue);
 		}
 	}
 }

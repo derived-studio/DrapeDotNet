@@ -4,7 +4,7 @@ using Drape.Interfaces;
 
 namespace Drape
 {
-	class RegistryFactory
+	public class RegistryFactory
 	{
 		private List<IInstaller> _installers;
 

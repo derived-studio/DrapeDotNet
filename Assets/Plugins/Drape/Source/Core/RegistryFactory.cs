@@ -8,6 +8,10 @@ namespace Drape
 	{
 		private List<IInstaller> _installers;
 
+		public RegistryFactory(IInstaller installer) : this(new List<IInstaller> { installer })
+		{
+		}
+
 		public RegistryFactory(List<IInstaller> installers)
 		{
 			_installers = installers;

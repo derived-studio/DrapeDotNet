@@ -3,7 +3,7 @@ using Drape.Interfaces;
 
 namespace Drape.YAML
 {
-	class YamlInstaller<TStat, TStatData> : IInstaller
+	public class YamlInstaller<TStat, TStatData> : IInstaller
 		where TStat : IStat
 		where TStatData : BaseStatData
 	{

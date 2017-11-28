@@ -82,9 +82,9 @@ namespace Drape
 				Name = ModTotalsName,
 				Stat = this.Code,
 				RawFlat = 0,
-				RawFactor = 1,
+				RawFactor = 0,
 				FinalFlat = 0,
-				FinalFactor = 1
+				FinalFactor = 0
 			}, null);
 
 			if (_modifiers != null) {
@@ -97,9 +97,9 @@ namespace Drape
 		private void AddModifierValues(Modifier modifier)
 		{
 			int rawFlat = _modTotals.RawFlat + modifier.RawFlat;
-			float rawFactor = _modTotals.RawFactor * (1 + modifier.RawFactor);
+			float rawFactor = _modTotals.RawFactor + modifier.RawFactor;
 			int finalFlat = _modTotals.FinalFlat + modifier.FinalFlat;
-			float finalFactor = _modTotals.FinalFactor * (1 + modifier.FinalFactor);
+			float finalFactor = _modTotals.FinalFactor + modifier.FinalFactor;
 
 			_modTotals = new Modifier(new ModifierData() {
 				Code = ModTotalsName.ToSlug(),

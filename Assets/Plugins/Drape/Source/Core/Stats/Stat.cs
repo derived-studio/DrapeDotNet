@@ -16,7 +16,7 @@ namespace Drape
 		public Stat(StatData data, IRegistry registry) : base(data, registry)
 		{
 			// process for serialization
-			if (registry != null && data.Dependencies != null) {
+			if (data.Dependencies != null) {
 				foreach (StatData.Dependency dep in data.Dependencies) {
 					IStat stat = registry.Get<IStat>(dep.Code);
 					_dependencies.Add(stat, dep.Value);

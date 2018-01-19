@@ -16,7 +16,17 @@ namespace Drape
 
 		public new IRegistry Registry { get { return _statRef.Registry; } }
 
-		public LocalStat(Stat stat) : base(stat.Data, null)
+		private static StatData LocalizeData(StatData data)
+		{
+			return new StatData() {
+				Value = data.Value,
+				Code = data.Code,
+				Name = data.Name,
+				Dependencies = null // removes global dependencies
+			};
+		}
+
+		public LocalStat(Stat stat) : base(LocalizeData(stat.Data), null)
 		{
 			_statRef = stat;
 		}

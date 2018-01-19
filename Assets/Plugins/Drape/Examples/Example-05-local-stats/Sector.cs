@@ -11,6 +11,7 @@ namespace Drape.Eamples.LocalStats
 	{
 		[SerializeField] Text _sectorLabel;
 		[SerializeField] Text _sectorProductionLabel;
+		[SerializeField] Button _sectorAddBtn;
 		[SerializeField] Button _sectorImproveBtn;
 		[SerializeField] Text _rawProductionLabel;
 		[SerializeField] Button _rawImproveBtn;
@@ -46,9 +47,17 @@ namespace Drape.Eamples.LocalStats
 
 		private void Start()
 		{
+			_sectorAddBtn.onClick.AddListener(AddSectorProduction);
 			_sectorImproveBtn.onClick.AddListener(ImproveSectorProduction);
 			_rawImproveBtn.onClick.AddListener(ImproveRawProduction);
 			_rawAddBtn.onClick.AddListener(AddRawProduction);
+		}
+
+		private void AddSectorProduction()
+		{
+			Modifier mod = _rawProduction.Registry.Get<Modifier>(Code(SectorManager.MOD_ADDITIONAL_RAW_PRODUCTON));
+			_rawProduction.AddModifier(mod);
+			UpdateLabels();
 		}
 
 		private void ImproveSectorProduction()
@@ -58,16 +67,17 @@ namespace Drape.Eamples.LocalStats
 			UpdateLabels();
 		}
 
-		private void ImproveRawProduction()
-		{
-			Modifier mod = _rawProduction.Registry.Get<Modifier>(Code(SectorManager.MOD_IMPROVED_RAW_PRODUCTION));
-			_rawProduction.AddModifier(mod);
-			UpdateLabels();
-		}
 
 		private void AddRawProduction()
 		{
 			Modifier mod = _rawProduction.Registry.Get<Modifier>(Code(SectorManager.MOD_ADDITIONAL_RAW_PRODUCTON));
+			_rawProduction.AddModifier(mod);
+			UpdateLabels();
+		}
+
+		private void ImproveRawProduction()
+		{
+			Modifier mod = _rawProduction.Registry.Get<Modifier>(Code(SectorManager.MOD_IMPROVED_RAW_PRODUCTION));
 			_rawProduction.AddModifier(mod);
 			UpdateLabels();
 		}

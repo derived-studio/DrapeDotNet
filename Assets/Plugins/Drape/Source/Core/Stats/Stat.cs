@@ -40,6 +40,38 @@ namespace Drape
 			return _modTotals.GetValue(baseValue + depsValue);
 		}
 
+		public StatData.Dependency[] Dependencies
+		{
+			get
+			{
+				List<StatData.Dependency> dependencies = new List<StatData.Dependency>();
+				// cast each element
+				foreach (KeyValuePair<IStat, float> dependency in _dependencies) {
+					dependencies.Add(new StatData.Dependency(dependency.Key.Code, dependency.Value));
+				}
+				return dependencies.ToArray();
+			}
+		}
+
+		public void AddDependency(IStat stat, float value)
+		{
+			if (_dependencies.ContainsKey(stat)) {
+				throw new System.Exception("Stat " + stat.Name + " (code: " + stat.Code + ") already added as dependency to " + Name + " (code: " + Code + ")");
+			}
+			_dependencies.Add(stat, value);
+		}
+
+		public void RemoveDependency(string statCode)
+		{
+			IStat stat = null;
+			foreach (KeyValuePair<IStat, float> dependency in _dependencies) {
+				if (dependency.Key.Code == statCode) {
+					_dependencies.Remove(stat);
+					return;
+				}
+			}
+		}
+
 		/// <summary>
 		/// Returns number of modifiers
 		/// </summary>
@@ -50,8 +82,6 @@ namespace Drape
 				return _modifiers.Count;
 			}
 		}
-
-		public StatData.Dependency[] Dependencies { get { return Data.Dependencies; } }
 
 		public void AddModifier(Modifier modifier)
 		{

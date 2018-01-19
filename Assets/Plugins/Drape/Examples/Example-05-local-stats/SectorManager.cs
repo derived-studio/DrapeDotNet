@@ -13,15 +13,20 @@ namespace Drape.Eamples.LocalStats
 		[SerializeField] private Text _rawProductionLabel;
 		[SerializeField] private Button _improveSectorProductionBtn;
 		[SerializeField] private Button _improveRawProductionBtn;
+		[SerializeField] private Text _productionLevelLabel;
+		[SerializeField] private Button _productionLevelAddBtn;
+		[SerializeField] private Button _productionLevelRemoveBtn;
 
 		private Registry Registry { get; set; }
 		private Sector[] Sectors { get; set; }
 
+		internal const string STAT_PRODUCTION_TECHNOLOGY = "Production technology";
 		internal const string STAT_RAW_PRODUCTION = "Raw production";
 		internal const string STAT_SECTOR_PROUCTION = "Sector production";
+		internal const string MOD_ADDITIONAL_SECTOR_PRODUCTON = "Additional sector production";
 		internal const string MOD_IMPROVED_SECTOR_PRODUCTION = "Improved sector produciton";
-		internal const string MOD_IMPROVED_RAW_PRODUCTION = "Improved raw produciton";
 		internal const string MOD_ADDITIONAL_RAW_PRODUCTON = "Additional raw production";
+		internal const string MOD_IMPROVED_RAW_PRODUCTION = "Improved raw produciton";
 
 		public SectorManager()
 		{
@@ -34,7 +39,7 @@ namespace Drape.Eamples.LocalStats
 			RegisterModifiers();
 			InitializeComponents();
 
-			RegisterButtonHandlers();		
+			RegisterButtonHandlers();
 			UpdateComponents();
 		}
 
@@ -54,6 +59,7 @@ namespace Drape.Eamples.LocalStats
 
 			_sectorProductionLabel.text = System.String.Format("Sector total: {0}", sumTotal);
 			_rawProductionLabel.text = System.String.Format("Raw total: {0}", sumSector);
+			_productionLevelLabel.text = Registry.Get(STAT_PRODUCTION_TECHNOLOGY.ToSlug()).Value.ToString();
 
 			for (var i = 0; i < 3; i ++) {
 				Sector sector = _sectorUIContainer.GetChild(i).GetComponent<Sector>();
@@ -63,13 +69,22 @@ namespace Drape.Eamples.LocalStats
 
 		void RegisterStats()
 		{
+			Stat prodTechnology = new Stat(new StatData() {
+				Name = STAT_PRODUCTION_TECHNOLOGY,
+				Value = 0
+			}, Registry);
+
 			Stat rawProduction = new Stat(new StatData() {
 				Name = STAT_RAW_PRODUCTION,
 				Value = 1
 			}, Registry);
 
 			Stat sectorProduction = new Stat(new StatData() {
-				Name = STAT_SECTOR_PROUCTION
+				Name = STAT_SECTOR_PROUCTION,
+				// gloobal dependency
+				Dependencies = new StatData.Dependency[] {
+					new StatData.Dependency(STAT_PRODUCTION_TECHNOLOGY.ToSlug(), 0.1f)
+				}
 			}, Registry);
 		}
 
@@ -85,6 +100,12 @@ namespace Drape.Eamples.LocalStats
 				Name = MOD_IMPROVED_RAW_PRODUCTION,
 				Stat = Code(STAT_RAW_PRODUCTION),
 				FinalFactor = .5f
+			}, Registry);
+
+			Modifier additionalSectorProduciotn = new Modifier(new ModifierData() {
+				Name = MOD_ADDITIONAL_SECTOR_PRODUCTON,
+				Stat = Code(STAT_SECTOR_PROUCTION),
+				RawFlat = 1
 			}, Registry);
 
 			Modifier improvedSectorProduction = new Modifier(new ModifierData() {
@@ -105,6 +126,10 @@ namespace Drape.Eamples.LocalStats
 				LocalStat localRawProduction = new LocalStat(rawProduction);
 				LocalStat localSectorProd = new LocalStat(sectorProduction);
 
+				// Dependencies can be added to individual sectors (local stats) as well
+				// Uncomment to enable, and comment out  global dependency line in RegisterStats() method to avoid duplication.
+				// localSectorProd.AddDependency(Registry.Get<Stat>(STAT_PRODUCTION_TECHNOLOGY.ToSlug()), 0.1f);
+
 				Sectors[i] = _sectorUIContainer.GetChild(i).GetComponent<Sector>();
 				Sectors[i].Init(i, localRawProduction, localSectorProd);
 			}
@@ -122,6 +147,18 @@ namespace Drape.Eamples.LocalStats
 			{
 				Modifier mod = Registry.Get<Modifier>(Code(MOD_IMPROVED_SECTOR_PRODUCTION));
 				Registry.Get<Stat>(Code(STAT_SECTOR_PROUCTION)).AddModifier(mod);
+			});
+
+			_productionLevelAddBtn.onClick.AddListener(delegate
+			{
+				Stat stat = Registry.Get<Stat>(STAT_PRODUCTION_TECHNOLOGY.ToSlug());
+				stat.BaseValue += 1;
+			});
+
+			_productionLevelRemoveBtn.onClick.AddListener(delegate
+			{
+				Stat stat = Registry.Get<Stat>(STAT_PRODUCTION_TECHNOLOGY.ToSlug());
+				stat.BaseValue -= 1;
 			});
 		}
 

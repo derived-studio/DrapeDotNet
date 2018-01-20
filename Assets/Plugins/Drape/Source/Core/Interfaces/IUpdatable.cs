@@ -1,7 +1,7 @@
-﻿namespace Drape
+﻿namespace Drape.Interfaces
 {
-    internal interface IUpdatable
-    {
-        void Update(float deltaTime);
-    }
+	public interface IUpdatable
+	{
+		void Update(float deltaTime);
+	}
 }

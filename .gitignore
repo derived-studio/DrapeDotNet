@@ -46,6 +46,9 @@ sysinfo.txt
 ## -------------------------------------
 
 *.dll
-Assets/Plugins/**/
-!Assets/Plugins/Extensions/
 !Drape/*.csproj
+!Assets/Plugins/
+Assets/Plugins/*
+!Assets/Plugins/Drape.meta
+!Assets/Plugins/Drape/
+Assets/Plugins/Drape/*.dll*

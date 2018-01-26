@@ -16,8 +16,12 @@ namespace Drape.Eamples.YamlDataFiles
 		private Resource _gold;
 		private Stat _goldCapacity;
 		private Stat _goldOutput;
+#pragma warning disable CS0414 // The field 'GoldMine._goldCapacityLimit' is assigned but its value is never used
 		private bool _goldCapacityLimit = false;
+#pragma warning restore CS0414 // The field 'GoldMine._goldCapacityLimit' is assigned but its value is never used
+#pragma warning disable CS0414 // The field 'GoldMine._goldOutputBoost' is assigned but its value is never used
 		private bool _goldOutputBoost = false;
+#pragma warning restore CS0414 // The field 'GoldMine._goldOutputBoost' is assigned but its value is never used
 
 		private Modifier _goldOutputModifier;
 		private Modifier _goldCapacityModifier;

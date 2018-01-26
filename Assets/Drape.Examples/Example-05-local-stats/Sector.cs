@@ -9,13 +9,27 @@ namespace Drape.Eamples.LocalStats
 
 	public class Sector : MonoBehaviour
 	{
+#pragma warning disable CS0649 // Field 'Sector._sectorLabel' is never assigned to, and will always have its default value null
 		[SerializeField] Text _sectorLabel;
+#pragma warning restore CS0649 // Field 'Sector._sectorLabel' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Sector._sectorProductionLabel' is never assigned to, and will always have its default value null
 		[SerializeField] Text _sectorProductionLabel;
+#pragma warning restore CS0649 // Field 'Sector._sectorProductionLabel' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Sector._sectorAddBtn' is never assigned to, and will always have its default value null
 		[SerializeField] Button _sectorAddBtn;
+#pragma warning restore CS0649 // Field 'Sector._sectorAddBtn' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Sector._sectorImproveBtn' is never assigned to, and will always have its default value null
 		[SerializeField] Button _sectorImproveBtn;
+#pragma warning restore CS0649 // Field 'Sector._sectorImproveBtn' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Sector._rawProductionLabel' is never assigned to, and will always have its default value null
 		[SerializeField] Text _rawProductionLabel;
+#pragma warning restore CS0649 // Field 'Sector._rawProductionLabel' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Sector._rawImproveBtn' is never assigned to, and will always have its default value null
 		[SerializeField] Button _rawImproveBtn;
+#pragma warning restore CS0649 // Field 'Sector._rawImproveBtn' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'Sector._rawAddBtn' is never assigned to, and will always have its default value null
 		[SerializeField] Button _rawAddBtn;
+#pragma warning restore CS0649 // Field 'Sector._rawAddBtn' is never assigned to, and will always have its default value null
 
 		LocalStat _sectorProduction;
 		LocalStat _rawProduction;

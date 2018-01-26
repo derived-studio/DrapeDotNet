@@ -45,10 +45,9 @@ sysinfo.txt
 ## Drape custom rules
 ## -------------------------------------
 
-*.dll
+*.dll*
 !Drape/*.csproj
 !Assets/Plugins/
 Assets/Plugins/*
 !Assets/Plugins/Drape.meta
 !Assets/Plugins/Drape/
-Assets/Plugins/Drape/*.dll*

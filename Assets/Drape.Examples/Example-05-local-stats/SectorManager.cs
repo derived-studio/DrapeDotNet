@@ -7,14 +7,30 @@ namespace Drape.Eamples.LocalStats
 	public class SectorManager : MonoBehaviour
 	{
 
+#pragma warning disable CS0649 // Field 'SectorManager._sectorUIContainer' is never assigned to, and will always have its default value null
 		[SerializeField] private Transform _sectorUIContainer;
+#pragma warning restore CS0649 // Field 'SectorManager._sectorUIContainer' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'SectorManager._sectorProductionLabel' is never assigned to, and will always have its default value null
 		[SerializeField] private Text _sectorProductionLabel;
+#pragma warning restore CS0649 // Field 'SectorManager._sectorProductionLabel' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'SectorManager._rawProductionLabel' is never assigned to, and will always have its default value null
 		[SerializeField] private Text _rawProductionLabel;
+#pragma warning restore CS0649 // Field 'SectorManager._rawProductionLabel' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'SectorManager._improveSectorProductionBtn' is never assigned to, and will always have its default value null
 		[SerializeField] private Button _improveSectorProductionBtn;
+#pragma warning restore CS0649 // Field 'SectorManager._improveSectorProductionBtn' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'SectorManager._improveRawProductionBtn' is never assigned to, and will always have its default value null
 		[SerializeField] private Button _improveRawProductionBtn;
+#pragma warning restore CS0649 // Field 'SectorManager._improveRawProductionBtn' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'SectorManager._productionLevelLabel' is never assigned to, and will always have its default value null
 		[SerializeField] private Text _productionLevelLabel;
+#pragma warning restore CS0649 // Field 'SectorManager._productionLevelLabel' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'SectorManager._productionLevelAddBtn' is never assigned to, and will always have its default value null
 		[SerializeField] private Button _productionLevelAddBtn;
+#pragma warning restore CS0649 // Field 'SectorManager._productionLevelAddBtn' is never assigned to, and will always have its default value null
+#pragma warning disable CS0649 // Field 'SectorManager._productionLevelRemoveBtn' is never assigned to, and will always have its default value null
 		[SerializeField] private Button _productionLevelRemoveBtn;
+#pragma warning restore CS0649 // Field 'SectorManager._productionLevelRemoveBtn' is never assigned to, and will always have its default value null
 
 		private Registry Registry { get; set; }
 		private Sector[] Sectors { get; set; }

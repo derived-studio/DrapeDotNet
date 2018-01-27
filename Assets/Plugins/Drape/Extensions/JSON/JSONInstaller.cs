@@ -1,4 +1,4 @@
-﻿		using Drape.Interfaces;
+﻿using Drape.Interfaces;
 using Drape.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;

@@ -45,9 +45,10 @@ sysinfo.txt
 ## Drape custom rules
 ## -------------------------------------
 
-*.dll*
+
 !Drape/*.csproj
-!Assets/Plugins/
-Assets/Plugins/*
-!Assets/Plugins/Drape.meta
-!Assets/Plugins/Drape/
+
+# Commit dependencies (setting this with nuget is painful)
+!Assets/Plugins/**/*.dll*
+# Require Drape dll to be build
+Assets/Plugins/Drape/*.dll*

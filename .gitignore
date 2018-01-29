@@ -46,7 +46,7 @@ sysinfo.txt
 ## -------------------------------------
 
 
-!Drape/*.csproj
+!Drape.Source/*.csproj
 
 # Commit dependencies (setting this with nuget is painful)
 !Assets/Plugins/**/*.dll*

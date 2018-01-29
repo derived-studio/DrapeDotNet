@@ -5,7 +5,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Drape.Extensions.JSON
 {
-	public class JSONInstaller<TStat, TStatData> : IInstaller
+	public class JSONInstaller<TStat, TStatData> : IStatInstaller
 		where TStat : IStat
 		where TStatData : BaseStatData
 	{

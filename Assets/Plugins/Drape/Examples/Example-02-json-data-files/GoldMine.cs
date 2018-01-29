@@ -31,7 +31,7 @@ namespace Drape.Eamples.JsonDataFiles
 			// Installer is class converting an input data (eg: json string) to stat data structures.
 			// It uses them internally to create stats and install the onto newly created registry,
 			// provided with Create() mehtod.
-			RegistryFactory registryFactory = new RegistryFactory(new List<IInstaller>() {
+			RegistryFactory registryFactory = new RegistryFactory(new List<IStatInstaller>() {
 				{ new JSONInstaller<Stat, StatData>((Resources.Load("example02/stats") as TextAsset).text) },
 				{ new JSONInstaller<Resource, ResourceData>((Resources.Load("example02/resources") as TextAsset).text) },
 				{ new JSONInstaller<Modifier, ModifierData>((Resources.Load("example02/modifiers") as TextAsset).text) }

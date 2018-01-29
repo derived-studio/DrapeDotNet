@@ -1,6 +1,6 @@
 ﻿namespace Drape.Interfaces
 {
-	public interface IInstaller
+	public interface IStatInstaller
 	{
 		void Install(Registry registry);
 	}

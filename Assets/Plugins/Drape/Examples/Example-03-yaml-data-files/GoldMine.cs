@@ -16,16 +16,15 @@ namespace Drape.Eamples.YamlDataFiles
 		private Resource _gold;
 		private Stat _goldCapacity;
 		private Stat _goldOutput;
-#pragma warning disable CS0414 // The field 'GoldMine._goldCapacityLimit' is assigned but its value is never used
-		private bool _goldCapacityLimit = false;
-#pragma warning restore CS0414 // The field 'GoldMine._goldCapacityLimit' is assigned but its value is never used
-#pragma warning disable CS0414 // The field 'GoldMine._goldOutputBoost' is assigned but its value is never used
-		private bool _goldOutputBoost = false;
-#pragma warning restore CS0414 // The field 'GoldMine._goldOutputBoost' is assigned but its value is never used
 
 		private Modifier _goldOutputModifier;
 		private Modifier _goldCapacityModifier;
 		private Registry _registry;
+		
+#pragma warning disable CS0414
+		private bool _goldCapacityLimit = false;
+		private bool _goldOutputBoost = false;
+#pragma warning restore CS0414
 
 		void Start()
 		{
@@ -37,7 +36,7 @@ namespace Drape.Eamples.YamlDataFiles
 			// Installer is class converting an input data (eg: json string) to stat data structures.
 			// It uses them internally to create stats and install the onto newly created registry,
 			// provided with Create() mehtod.
-			RegistryFactory registryFactory = new RegistryFactory(new List<IInstaller>() {
+			RegistryFactory registryFactory = new RegistryFactory(new List<IStatInstaller>() {
 				{ new YamlInstaller<Stat, StatData>((Resources.Load("example03/stats") as TextAsset).text) },
 				{ new YamlInstaller<Resource, ResourceData>((Resources.Load("example03/resources") as TextAsset).text) },
 				{ new YamlInstaller<Modifier, ModifierData>((Resources.Load("example03/modifiers") as TextAsset).text) },

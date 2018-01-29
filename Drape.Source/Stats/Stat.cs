@@ -53,6 +53,23 @@ namespace Drape
 			}
 		}
 
+		public bool ContainsDependency(string statCode)
+		{
+			IStat[] stats = new IStat[_dependencies.Count];
+			_dependencies.Keys.CopyTo(stats, 0);
+			foreach (IStat stat in stats) {
+				if (stat.Code == statCode) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public bool ContainsDependency(IStat stat)
+		{
+			return _dependencies.ContainsKey(stat);
+		}
+
 		public void AddDependency(IStat stat, float value)
 		{
 			if (_dependencies.ContainsKey(stat)) {
@@ -63,13 +80,36 @@ namespace Drape
 
 		public void RemoveDependency(string statCode)
 		{
-			IStat stat = null;
-			foreach (KeyValuePair<IStat, float> dependency in _dependencies) {
-				if (dependency.Key.Code == statCode) {
-					_dependencies.Remove(stat);
+			IStat[] stats = new IStat[_dependencies.Count];
+			_dependencies.Keys.CopyTo(stats, 0);
+			foreach (IStat stat in stats) {
+				if (stat.Code == statCode) {
+					RemoveDependency(stat);
 					return;
 				}
 			}
+		}
+
+		public void RemoveDependency(IStat stat)
+		{
+			_dependencies.Remove(stat);
+		}
+
+		public void UpdateDependency(string statCode, float value)
+		{
+			IStat[] stats = new IStat[_dependencies.Count];
+			_dependencies.Keys.CopyTo(stats, 0);
+			foreach (IStat stat in stats) {
+				if (stat.Code == statCode) {
+					UpdateDependency(stat, value);
+					return;
+				}
+			}
+		}
+
+		public void UpdateDependency(IStat stat, float value)
+		{
+			_dependencies[stat] = value;
 		}
 
 		/// <summary>
